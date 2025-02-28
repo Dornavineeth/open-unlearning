@@ -38,7 +38,7 @@ We provide several variants for each of the components in the unlearning pipelin
 | **Unlearning Methods** | GradAscent, GradDiff, NPO, SimNPO, DPO |
 | **Evaluation Metrics** | Verbatim Probability, Verbatim ROUGE, QA-ROUGE, MIA Attacks, TruthRatio, Model Utility |
 | **Datasets**          | MUSE-News (BBC), MUSE-Books (Harry Potter), TOFU (different splits) |
-| **Model Families**    | LLaMA 3.2, LLaMA 3.1, LLaMA-2, Phi-3.5, ICLM (from MUSE), Phi-1.5, Gemma |
+| **Model Families**    | TOFU: LLaMA-3.2, LLaMA-3.1, LLaMA-2; MUSE: LLaMA-2, ICLM; Additional: Phi-3.5, Phi-1.5, Gemma |
 
 ---
 
@@ -106,7 +106,7 @@ python src/eval.py --config-name=eval.yaml experiment=eval/tofu/default \
   model.model_args.pretrained_model_name_or_path=open-unlearning/tofu_Llama-3.2-1B-Instruct_full
 ```
 
-- `experiment`-Path to the evaluation configuration [`configs/experiment/eval/tofu/default.yaml`](configs/experiment/eval/tofu/default.yaml).
+- `experiment`- Path to the evaluation configuration [`configs/experiment/eval/tofu/default.yaml`](configs/experiment/eval/tofu/default.yaml).
 - `model`- Sets up the model and tokenizer configs for the `Llama-3.2-1B-Instruct` model.
 - `model.model_args.pretrained_model_name_or_path`- Overrides the default experiment config to evaluate a model from a HuggingFace ID (can use a local model checkpoint path as well).
 
@@ -129,7 +129,7 @@ Adding a new component (trainer, evaluation metric, benchmark, model, or dataset
 Please feel free to raise a pull request for any new features after setting up the environment in development mode.
 
 ```bash
-pip install .[flash-attn, dev]
+pip install .[dev]
 ```
 
 ## 📚 Further Documentation
