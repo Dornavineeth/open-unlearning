@@ -44,18 +44,21 @@ We provide several variants for each of the components in the unlearning pipelin
 
 ## 📌 Table of Contents
 - 📖 [Overview](#-overview)
-- 🗃️ [Available Components](#-available-components)
+- 🗃️ [Available Components](#%EF%B8%8F-available-components)
 - ⚡ [Quickstart](#-quickstart)
   - 🛠️ [Environment Setup](#-environment-setup)
   - 💾 [Data Setup](#-data-setup)
-  - 📜 [Running Baseline Experiments](#-running-baseline-experiments)
+- 🔄 [Updated TOFU benchmark](#-updated-tofu-benchmark)
 - 🧪 [Running Experiments](#-running-experiments)
   - 🚀 [Perform Unlearning](#-perform-unlearning)
   - 📊 [Perform an Evaluation](#-perform-an-evaluation)
+  - 📜 [Running Baseline Experiments](#-running-baseline-experiments)
 - ➕ [How to Add New Components](#-how-to-add-new-components)
 - 📚 [Further Documentation](#-further-documentation)
 - 🔗 [Support & Contributors](#-support--contributors)
-- 📝 [Citation](#-citation)
+- 📝 [Citing this work](#-citing-this-work)
+- 🤝 [Acknowledgements](#-acknowledgements)
+- 📄 [License](#-license)
 
 ---
 
@@ -79,6 +82,14 @@ python setup_data.py # populates saves/eval with evaluation results of the uploa
 
 ---
 
+### 🔄 Updated TOFU benchmark
+
+We've updated Open-Unlearning's TOFU benchmark target models to use a wider variety of newer architectures with sizes varying from 1B to 8B. These include LLaMA 3.2 1B, LLaMA 3.2 3B, LLaMA 3.1 8B, and the original LLaMA-2 7B from [the old version of TOFU](github.com/locuslab/tofu). 
+
+For each architecture, we have finetuned with four different splits of the TOFU datasets: `full`, `retain90`, `retain95`, `retain99`, for a total of 16 finetuned models. The first serves as the target (base model for unlearning) and the rest are retain models used to measure performance against for each forget split. These models are on [HuggingFace](`https://huggingface.co/collections/open-unlearning/tofu-new-models-67bcf636334ea81727573a9f0`) and the paths to these models can be set in the experimental configs or in command-line overrides.
+
+---
+
 ## 🧪 Running Experiments
 
 We provide an easily configurable interface for running evaluations by leveraging Hydra configs. For a more detailed documentation of aspects like running experiments, commonly overriden arguments, interfacing with configurations, distributed training and simple finetuning of models, refer [`docs/experiments.md`](docs/experiments.md).
@@ -89,7 +100,7 @@ An example command for launching an unlearning process with `GradAscent` on the 
 
 ```bash
 python src/train.py --config-name=unlearn.yaml experiment=unlearn/tofu/default \
-  forget_split=forget10 retain_split=retain90 trainer=GradAscent
+  forget_split=forget10 retain_split=retain90 trainer=GradAscent task_name=SAMPLE_UNLEARN
 ```
 
 - `experiment`- Path to the Hydra config file [`configs/experiment/unlearn/muse/default.yaml`](configs/experiment/unlearn/tofu/default.yaml) with default experimental settings for TOFU unlearning, e.g. train dataset, eval benchmark details, model paths etc..
@@ -103,7 +114,8 @@ An example command for launching a TOFU evaluation process on `forget10` split:
 ```bash
 python src/eval.py --config-name=eval.yaml experiment=eval/tofu/default \
   model=Llama-3.2-1B-Instruct \
-  model.model_args.pretrained_model_name_or_path=open-unlearning/tofu_Llama-3.2-1B-Instruct_full
+  model.model_args.pretrained_model_name_or_path=open-unlearning/tofu_Llama-3.2-1B-Instruct_full \
+  task_name=SAMPLE_EVAL
 ```
 
 - `experiment`- Path to the evaluation configuration [`configs/experiment/eval/tofu/default.yaml`](configs/experiment/eval/tofu/default.yaml).
@@ -111,6 +123,7 @@ python src/eval.py --config-name=eval.yaml experiment=eval/tofu/default \
 - `model.model_args.pretrained_model_name_or_path`- Overrides the default experiment config to evaluate a model from a HuggingFace ID (can use a local model checkpoint path as well).
 
 For more details about creating and running evaluations, refer [`docs/evaluation.md`](docs/evaluation.md).
+
 
 ### 📜 Running Baseline Experiments
 The scripts below execute standard baseline unlearning experiments on the TOFU and MUSE datasets, evaluated using their corresponding benchmarks. The expected results for these are in [`docs/results.md`](docs/results.md).
@@ -151,11 +164,7 @@ Developed and maintained by Vineeth Dorna ([@Dornavineeth](https://github.com/Do
 
 If you encounter any issues or have questions, feel free to raise an issue in the repository 🛠️.
 
-## 📝 Citation
-
-This repo is inspired from [LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory). We acknowledge the [TOFU](https://github.com/locuslab/tofu) and [MUSE](https://github.com/jaechan-repo/muse_bench) benchmarks, which served as the foundation for our re-implementation.
-
----
+## 📝 Citing this work
 
 If you use OpenUnlearning in your research, please cite:
 
@@ -175,7 +184,7 @@ If you use OpenUnlearning in your research, please cite:
 }
 ```
 <details>
-  <summary>To cite other benchmarks used from OpenUnlearning</summary>
+  <summary>Expand for bibtex to cite other benchmarks used from OpenUnlearning</summary>
 
   ```bibtex
   @article{shi2024muse,
@@ -187,8 +196,14 @@ If you use OpenUnlearning in your research, please cite:
 ```
 </details>
 
+---
+
+### 🤝 Acknowledgements
+
+- This repo is inspired from [LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory). 
+- The [TOFU](https://github.com/locuslab/tofu) and [MUSE](https://github.com/jaechan-repo/muse_bench) benchmarks served as the foundation for our re-implementation. 
 
 ---
 
-## 📄 License
+### 📄 License
 This project is licensed under the MIT License. See the [`LICENSE`](LICENSE) file for details.

@@ -4,7 +4,7 @@
 
 </div>
 
-The scripts below execute standard baseline unlearning experiments on the TOFU and MUSE datasets, evaluated using their corresponding benchmarks.
+The scripts below execute standard baseline unlearning experiments on the TOFU and MUSE datasets, evaluated using their corresponding benchmarks. 
 ```bash
 bash scripts/tofu_unlearn.sh
 bash scripts/muse_unlearn.sh
@@ -22,13 +22,15 @@ For all the experiments below, we used the following setup
 | **Distributed Computing** | [DeepSpeed ZeRO Stage 3 (Accelerate)](https://huggingface.co/docs/accelerate/en/usage_guides/deepspeed) |
 | **Hyperparameters**    | Learning Rate (lr) = 1e-5 <br> α = 1, γ = 1, β = 0.1 (where applicable) <br> Number of Epochs = 10 <br> Optimizer: [paged_adamw_32bit](https://huggingface.co/docs/bitsandbytes/main/en/reference/optim/adamw#bitsandbytes.optim.PagedAdamW) |
 
-__Note:__ 
-1. The results below focus only on some important subsets of metrics for each benchmark, for more evals see `muse*/*_SUMMARY.json`, `tofu*/evals*/*_SUMMARY.json` files on the [HuggingFace space](https://huggingface.co/datasets/open-unlearning/eval).
-2. Results may vary even with the same effective hyperparameters when trained with modifications to the distributed training setup, including when training on a single GPU. For example: methods such as SimNPO, can be significantly improved with careful tuning. **Please use these numbers only for reproducibility purposes**.
+### Keep in mind
+
+1. The results in the next section: display only some important subsets of metrics for each benchmark, for more evals see `muse*/*_SUMMARY.json`, `tofu*/evals*/*_SUMMARY.json` files on the [HuggingFace space](https://huggingface.co/datasets/open-unlearning/eval).
+2. **Please use these numbers only for reproducibility purposes:** For comparing unlearing methods in your research, you might need to tun hyperparameters and run all methods in the same setting. This is because results may vary even with the same effective hyperparameters when trained with modifications to the distributed training setup, including when training on a single GPU. In addition hyperparameters here are set to defaults: results such as for SimNPO can be significantly improved with tuning.
 3. NPO in MUSE: for NPO, the MUSE implementation is inconsistent with the [original paper](https://github.com/licong-lin/negative-preference-optimization) as discussed [here]( https://github.com/jaechan-repo/muse_bench/issues/2). This inconsistency is carried over into implementations like [SimNPO](https://github.com/OPTML-Group/Unlearn-Simple/issues/5). Here, we use the original NPO implementation with the same loss function expression across datasets.
 
 
-### TOFU  unlearning on `Llama-2-7b-hf-chat`
+
+### TOFU unlearning on the `Llama-2-7b-hf-chat` architecture
 
 <div style="overflow-x: auto; max-width: 100%;">
 <table class="dataframe">
@@ -61,11 +63,11 @@ __Note:__
     </tr>
     <tr>
       <th>Retain</th>
-      <td>0.0</td>
+      <td>1.0</td>
       <td>0.63</td>
-      <td>0</td>
+      <td>1.0</td>
       <td>0.63</td>
-      <td>0.0</td>
+      <td>1.0</td>
       <td>0.61</td>
     </tr>
     <tr>
@@ -121,7 +123,7 @@ __Note:__
 </div>
 
 
-### TOFU  unlearning on `Llama-3.2-1B-Instruct`
+### TOFU unlearning on the `Llama-3.2-1B-Instruct` architecture
 
 <div style="overflow-x: auto; max-width: 100%;">
 <table class="dataframe">
@@ -154,11 +156,11 @@ __Note:__
     </tr>
     <tr>
       <th>Retain</th>
-      <td>0</td>
+      <td>1.0</td>
       <td>0.60</td>
-      <td>0</td>
-      <td>0.6</td>
-      <td>0</td>
+      <td>1.0</td>
+      <td>0.60</td>
+      <td>1.0</td>
       <td>0.59</td>
     </tr>
     <tr>
@@ -214,7 +216,7 @@ __Note:__
 </div>
 
 
-### MUSE  unlearning on `Llama-2-7b-hf`
+### MUSE unlearning on the benchmark's target models
 
 <div style="overflow-x: auto; max-width: 100%;">
 <table class="dataframe">
@@ -252,11 +254,11 @@ __Note:__
       <th>Retain</th>
       <td>0.33</td>
       <td>0.21</td>
-      <td>-4.54</td>
+      <td>0</td>
       <td>0.56</td>
       <td>0.3</td>
       <td>0.14</td>
-      <td>7.96</td>
+      <td>0</td>
       <td>0.69</td>
     </tr>
     <tr>
