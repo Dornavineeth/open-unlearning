@@ -44,11 +44,11 @@ We provide several variants for each of the components in the unlearning pipelin
 
 ## 📌 Table of Contents
 - 📖 [Overview](#-overview)
-- 🗃️ [Available Components](#%EF%B8%8F-available-components) # failing
+- 🗃️ [Available Components](#%EF%B8%8F-available-components)
 - ⚡ [Quickstart](#-quickstart)
   - 🛠️ [Environment Setup](#-environment-setup)
   - 💾 [Data Setup](#-data-setup)
-- 🔄 [Updated TOFU benchmark](#-updated-tofu-benchmark) # failing
+- 🔄 [Updated TOFU benchmark](#-updated-tofu-benchmark)
 - 🧪 [Running Experiments](#-running-experiments)
   - 🚀 [Perform Unlearning](#-perform-unlearning)
   - 📊 [Perform an Evaluation](#-perform-an-evaluation)
@@ -56,8 +56,8 @@ We provide several variants for each of the components in the unlearning pipelin
 - ➕ [How to Add New Components](#-how-to-add-new-components)
 - 📚 [Further Documentation](#-further-documentation)
 - 🔗 [Support & Contributors](#-support--contributors)
-- 📝 [Citing this work](#-citing-this-work) # failing
-- 🤝 [Acknowledgements](#-acknowledgements) # failing
+- 📝 [Citing this work](#-citing-this-work)
+- 🤝 [Acknowledgements](#-acknowledgements)
 - 📄 [License](#-license)
 
 ---
