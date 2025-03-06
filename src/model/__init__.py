@@ -50,6 +50,9 @@ def get_model(model_cfg: DictConfig):
             f"Error {e} while fetching model using AutoModelForCausalLM.from_pretrained()."
         )
     tokenizer = get_tokenizer(tokenizer_args)
+    assert tokenizer.vocab_size == model.config.vocab_size, ValueError(
+        f"Model: {model_args.pretrained_model_name_or_path} and tokenizer: {tokenizer_cfg.pretrained_model_name_or_path} are not compatible, please ensure correct paths set for each."
+    )
     return model, tokenizer
 
 
