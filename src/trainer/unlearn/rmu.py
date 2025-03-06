@@ -1,7 +1,6 @@
 import re
 import torch
 import deepspeed
-from torch import nn
 from trainer.unlearn.grad_diff import GradDiff
 
 
