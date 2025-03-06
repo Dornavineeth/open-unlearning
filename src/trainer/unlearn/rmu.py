@@ -94,19 +94,23 @@ class RMU(GradDiff):
         return self.control_vec
 
     
-    def compute_activation_loss(self, activation1, avtivation2, mask):
-        squared_diff = torch.nn.functional.mse_loss(activation1, avtivation2, reduction="none") # Shape (b, s, d)
+    def compute_activation_loss(self, activation1, activation2, mask):
+        squared_diff = torch.nn.functional.mse_loss(activation1, activation2, reduction="none") # Shape (b, s, d)
         expanded_mask = mask.unsqueeze(-1).expand_as(squared_diff)  # Shape: [b, s, d]
-        # squared_diff_sum = (squared_diff * expanded_mask).sum(dim=(1, 2))  # Sum over seq_len and feature dim
-        squared_diff_sum = (squared_diff * expanded_mask).mean(dim=2).sum(dim=(1))  # Sum over seq_len and feature dim
+        squared_diff_sum = (squared_diff * expanded_mask).mean(dim=2).sum(dim=(1)) # Shape: [b, 1]
         num_tokens = mask.sum(dim=-1, keepdim=True)  # Sum over seq_len, Shape: [b, 1]
         return (squared_diff_sum / num_tokens).mean()
     
     def compute_retain_loss(self, model, retain_inputs):
-        model_retain_activations = self.forward_with_cache(model, retain_inputs, module=self.model_module, no_grad=False)
-        ref_retain_activations = self.forward_with_cache(self.ref_model, retain_inputs, module=self.ref_module, no_grad=True).to(model_retain_activations.device)
-        mask = (retain_inputs['labels'] != -100)  # Shape: [b, s]
-        retain_loss = self.compute_activation_loss(model_retain_activations, ref_retain_activations, mask)
+        retain_loss = 0.0
+        
+        if self.retain_loss_type == "EMBED_DIFF":
+            model_retain_activations = self.forward_with_cache(model, retain_inputs, module=self.model_module, no_grad=False)
+            ref_retain_activations = self.forward_with_cache(self.ref_model, retain_inputs, module=self.ref_module, no_grad=True).to(model_retain_activations.device)
+            mask = (retain_inputs['labels'] != -100)  # Shape: [b, s]
+            retain_loss = self.compute_activation_loss(model_retain_activations, ref_retain_activations, mask)
+        else:
+            retain_loss = super().compute_retain_loss(model, retain_inputs)
         return retain_loss
 
     def compute_loss(self, model, inputs, return_outputs=False):

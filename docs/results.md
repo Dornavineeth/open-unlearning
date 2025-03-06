@@ -142,15 +142,16 @@ __Note:__
     </tr>
     <tr>
       <th>RMU</th>
-      <td>6.76e-03</td>
-      <td>7.18e-04</td>
-      <td>0.84</td>
-      <td>1.21e-10</td>
-      <td>0</td>
+      <td>0.4</td>
+      <td>0.62</td>
+      <td>0.64</td>
+      <td>9.59e-10</td>
+      <td>0.02</td>
       <td>0.81</td>
-      <td>1.18e-17</td>
-      <td>0</td>
-      <td>0.8</td>
+      <td>6.92e-21</td>
+      <td>0.03</td>
+      <td>0.81</td>
+    </tr>
   </tbody>
 </table>
 </div>
@@ -268,17 +269,17 @@ __Note:__
       <td>0.54</td>
       <td>1.07e-05</td>
     </tr>
-    <tr>
+     <tr>
       <th>RMU</th>
-      <td>6.76e-03</td>
-      <td>0.60</td>
-      <td>0.47</td>
-      <td>2.89e-11</td>
-      <td>0.6</td>
-      <td>0.47</td>
-      <td>0.32</td>
+      <td>0.16</td>
+      <td>0.55</td>
+      <td>0.70</td>
+      <td>4.87e-10</td>
+      <td>0.58</td>
+      <td>0.77</td>
+      <td>3.15e-15</td>
       <td>0.59</td>
-      <td>0.64</td>
+      <td>0.76</td>
     </tr>
   </tbody>
 </table>
@@ -379,14 +380,14 @@ __Note:__
     </tr>
     <tr>
       <th>RMU</th>
-      <td>0.67</td>
-      <td>0.57</td>
-      <td>-99.81</td>
-      <td>0.56</td>
-      <td>0.47</td>
-      <td>1.0</td>
-      <td>-57.35</td>
-      <td>0.67</td>
+      <td>0.48</td>
+      <td>0.05</td>
+      <td>56.36</td>
+      <td>0.51</td>
+      <td>0.29</td>
+      <td>0.79</td>
+      <td>-60.52</td>
+      <td>0.48</td>
     </tr>
   </tbody>
 </table>
