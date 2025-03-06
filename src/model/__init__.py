@@ -3,6 +3,7 @@ from omegaconf import DictConfig, open_dict
 import os
 import torch
 import logging
+import warnings
 
 hf_home = os.getenv("HF_HOME", default=None)
 
@@ -50,9 +51,11 @@ def get_model(model_cfg: DictConfig):
             f"Error {e} while fetching model using AutoModelForCausalLM.from_pretrained()."
         )
     tokenizer = get_tokenizer(tokenizer_args)
-    assert tokenizer.vocab_size == model.config.vocab_size, ValueError(
-        f"Model: {model_args.pretrained_model_name_or_path} and tokenizer: {tokenizer_cfg.pretrained_model_name_or_path} are not compatible, please ensure correct paths set for each."
-    )
+
+    if abs(tokenizer.vocab_size - model.config.vocab_size) / model.config.vocab_size > 0.05:
+        warnings.warn(
+            f"Vocab sizes of model: {model_args.pretrained_model_name_or_path} and tokenizer: {tokenizer_cfg.pretrained_model_name_or_path} differ by more than 5% which can be a sign of incompatibility."
+        )
     return model, tokenizer
 
 
