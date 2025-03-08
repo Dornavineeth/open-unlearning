@@ -36,7 +36,7 @@ class RMU(GradDiff):
     
     def create_optimizer(self):
         self._set_all_params(self.model, False)
-        # This makes the optimizer to select only trainable params
+        # This makes the optimizer select only trainable params
         self._set_trainable_params(self.model, self.trainable_params_regex, True)
         super().create_optimizer()
         self._set_all_params(self.model, True)
