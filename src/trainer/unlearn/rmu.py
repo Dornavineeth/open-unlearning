@@ -1,3 +1,5 @@
+"""Borrowed implementation from https://github.com/centerforaisafety/wmdp/blob/main/rmu/unlearn.py"""
+
 import re
 import torch
 import deepspeed
@@ -35,11 +37,11 @@ class RMU(GradDiff):
         
     
     def create_optimizer(self):
-        self._set_all_params(self.model, False)
-        # This makes the optimizer select only trainable params
+        self._freeze_all_params(self.model, False)
+        # This makes the optimizer to select only trainable params
         self._set_trainable_params(self.model, self.trainable_params_regex, True)
         super().create_optimizer()
-        self._set_all_params(self.model, True)
+        self._freeze_all_params(self.model, True)
         
     
     def _get_matching_module(self, model, module_regex):
@@ -57,7 +59,7 @@ class RMU(GradDiff):
 
         return next(iter(matched_modules.values()))  # Return the single matched module
 
-    def _set_all_params(self, model, requires_grad=True):
+    def _freeze_all_params(self, model, requires_grad=True):
         """Freeze all parameters in the model initially."""
         for param in model.parameters():
             param.requires_grad = requires_grad
@@ -67,9 +69,10 @@ class RMU(GradDiff):
         for name, param in model.named_parameters():
             if any(re.fullmatch(pattern, name) for pattern in trainable_params_regex):
                 param.requires_grad = requires_grad
-                print(f"{name}:requires_grad\t{requires_grad}")
+                # print(f"{name}:requires_grad\t{requires_grad}")
     
     def forward_with_cache(self, model, inputs, module, no_grad=True):
+        """Performs a forward pass while caching the output of a specified module."""
         cache = []
         def hook(module, input, output):
             if isinstance(output, tuple):
@@ -79,13 +82,10 @@ class RMU(GradDiff):
             return None 
         
         hook_handle = module.register_forward_hook(hook)
-        if no_grad:
-            with torch.no_grad():
-                _ = model(**inputs)
-        else:
-            _ = model(**inputs)
+        with torch.set_grad_enabled(not(no_grad)):
+            outputs = model(**inputs)
         hook_handle.remove()
-        return cache[0]
+        return cache[0], outputs
     
     def get_control_vector(self, dim):
         if self.control_vec is None:
@@ -105,10 +105,10 @@ class RMU(GradDiff):
         retain_loss = 0.0
         
         if self.retain_loss_type == "EMBED_DIFF":
-            model_retain_activations = self.forward_with_cache(model, retain_inputs, module=self.model_module, no_grad=False)
-            ref_retain_activations = self.forward_with_cache(self.ref_model, retain_inputs, module=self.ref_module, no_grad=True).to(model_retain_activations.device)
+            model_retain_activations, _ = self.forward_with_cache(model, retain_inputs, module=self.model_module, no_grad=False)
+            ref_retain_activations, _ = self.forward_with_cache(self.ref_model, retain_inputs, module=self.ref_module, no_grad=True)
             mask = (retain_inputs['labels'] != -100)  # Shape: [b, s]
-            retain_loss = self.compute_activation_loss(model_retain_activations, ref_retain_activations, mask)
+            retain_loss = self.compute_activation_loss(model_retain_activations, ref_retain_activations.to(model_retain_activations.device), mask)
         else:
             retain_loss = super().compute_retain_loss(model, retain_inputs)
         return retain_loss
@@ -121,7 +121,8 @@ class RMU(GradDiff):
             "labels": forget_inputs["labels"],
         }
 
-        model_forget_activations = self.forward_with_cache(model, forget_inputs, self.model_module, no_grad=False)
+        model_forget_activations, forget_outputs = self.forward_with_cache(model, forget_inputs, self.model_module, no_grad=False)
+        # If multiple datasets or concepts need unlearning, pass the control vector during processing; otherwise, default to a random vector during training.
         control_vec = forget_inputs.get("control_vec", self.get_control_vector(model_forget_activations.shape[-1]))
         control_vec = control_vec.to(dtype=model_forget_activations.dtype, device=model_forget_activations.device)
         control_vec = control_vec.expand_as(model_forget_activations)
@@ -138,4 +139,4 @@ class RMU(GradDiff):
         
         loss = self.gamma * forget_loss + self.alpha * retain_loss
 
-        return (loss, model_forget_activations) if return_outputs else loss
+        return (loss, forget_outputs) if return_outputs else loss
