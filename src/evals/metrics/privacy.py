@@ -4,7 +4,7 @@ from torch.utils.data import DataLoader
 from sklearn.metrics import auc as get_auc, roc_curve as get_roc_curve
 
 from evals.metrics.base import unlearning_metric, logger
-from evals.metrics.utils import run_batchwise_evals, eval_minKpc_neg_logprob
+from evals.metrics.utils import run_batchwise_evals
 
 
 @unlearning_metric(name="forget_quality")
@@ -38,6 +38,18 @@ def forget_quality(model, **kwargs):
 @unlearning_metric(name="minKpc_negative_logprob")
 def minKpc_negative_logprob(model, **kwargs):
     """Compute the min-k percentile average of token-wise model probabilities by data points"""
+    
+    def min_k_logic_batch(model, batch, percentile):
+        """Compute minK% attack score for each sample in a batch."""
+        token_wise_logprobs = tokenwise_logprobs(model, batch)
+        mink_means = []
+        for result in token_wise_logprobs:
+            scores = np.sort(result.cpu().numpy())
+            top_k = max(1, int(percentile / 100 * len(scores)))
+            mink_mean = -1 * np.mean(scores[:top_k])
+            mink_means.append(mink_mean)
+        return [{"score": float(neglogprob)} for neglogprob in mink_means]
+    
     data = kwargs["data"]
     collator = kwargs["collators"]
     batch_size = kwargs["batch_size"]
@@ -49,7 +61,7 @@ def minKpc_negative_logprob(model, **kwargs):
         "value_by_index": run_batchwise_evals(
             model,
             dataloader,
-            eval_minKpc_neg_logprob,
+            min_k_logic_batch,
             fun_args,
             "Calculating avg token-wise lowest K% percentile logprobs across batches",
         )
