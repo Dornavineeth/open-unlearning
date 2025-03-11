@@ -31,23 +31,26 @@ __Note:__
 
 ### TOFU unlearning on the `Llama-2-7b-hf-chat` architecture
 
-<div style="overflow-x: auto; max-width: 100%;">
+<div style="overflow-x: auto; max-width: 100%;"t>
 <table class="dataframe">
   <thead>
     <tr>
       <th>Method</th>
-      <th style="text-align: center;" colspan="2" halign="left">forget01</th>
-      <th style="text-align: center;" colspan="2" halign="left">forget05</th>
-      <th style="text-align: center;" colspan="2" halign="left">forget10</th>
+      <th style="text-align: center;" colspan="3" halign="left">forget01</th>
+      <th style="text-align: center;" colspan="3" halign="left">forget05</th>
+      <th style="text-align: center;" colspan="3" halign="left">forget10</th>
     </tr>
     <tr>
       <th></th>
       <th>forget_quality</th>
       <th>model_utility</th>
+      <th>forget_truth_ratio</th>
       <th>forget_quality</th>
       <th>model_utility</th>
+      <th>forget_truth_ratio</th>
       <th>forget_quality</th>
       <th>model_utility</th>
+      <th>forget_truth_ratio</th>
     </tr>
   </thead>
   <tbody>
@@ -55,67 +58,88 @@ __Note:__
       <th>Finetuned</th>
       <td>1.27e-03</td>
       <td>0.63</td>
+      <td>0.53</td>
       <td>1.33e-13</td>
       <td>0.63</td>
+      <td>0.51</td>
       <td>4.35e-25</td>
       <td>0.63</td>
+      <td>0.52</td>
     </tr>
     <tr>
       <th>Retain</th>
       <td>1.0</td>
       <td>0.63</td>
+      <td>0.68</td>
       <td>1.0</td>
       <td>0.63</td>
+      <td>0.67</td>
       <td>1.0</td>
       <td>0.61</td>
-    </tr>
+      <td>0.68</td>
+    </tr colspan=20>
     <tr>
-      <td colspan="10"> </td>
+      <td colspan="20"> </td>
     </tr>
     <tr>
       <th>GradAscent</th>
       <td>1.88e-04</td>
       <td>0.55</td>
+      <td>0.36</td>
       <td>1.94e-119</td>
       <td>0.00e+00</td>
+      <td>8.82e-96</td>
       <td>1.06e-239</td>
       <td>0.00e+00</td>
+      <td>2.21e-32</td>
     </tr>
     <tr>
       <th>GradDiff</th>
       <td>3.02e-03</td>
       <td>0.57</td>
+      <td>0.41</td>
       <td>1.94e-119</td>
       <td>0.56</td>
+      <td>4.14e-95</td>
       <td>1.80e-229</td>
       <td>0.58</td>
+      <td>1.46e-07</td>
     </tr>
     <tr>
       <th>IdkDPO</th>
       <td>0.1</td>
       <td>0.56</td>
+      <td>0.67</td>
       <td>4.02e-06</td>
       <td>0.04</td>
+      <td>0.67</td>
       <td>5.42e-13</td>
       <td>0.04</td>
+      <td>0.64</td>
     </tr>
     <tr>
       <th>NPO</th>
       <td>0.4</td>
       <td>0.58</td>
+      <td>0.65</td>
       <td>0.09</td>
       <td>0.53</td>
+      <td>0.71</td>
       <td>0.42</td>
       <td>0.54</td>
+      <td>0.73</td>
     </tr>
     <tr>
       <th>SimNPO</th>
       <td>1.27e-03</td>
       <td>0.58</td>
+      <td>0.41</td>
       <td>1.06e-106</td>
       <td>0.6</td>
+      <td>3.94e-05</td>
       <td>1.47e-198</td>
       <td>0.6</td>
+      <td>3.17e-04</td>
     </tr>
     <tr>
       <th>RMU</th>
@@ -141,18 +165,21 @@ __Note:__
   <thead>
     <tr>
       <th>Method</th>
-      <th style="text-align: center;" colspan="2" halign="left">forget01</th>
-      <th style="text-align: center;" colspan="2" halign="left">forget05</th>
-      <th style="text-align: center;" colspan="2" halign="left">forget10</th>
+      <th style="text-align: center;" colspan="3" halign="left">forget01</th>
+      <th style="text-align: center;" colspan="3" halign="left">forget05</th>
+      <th style="text-align: center;" colspan="3" halign="left">forget10</th>
     </tr>
     <tr>
       <th></th>
       <th>forget_quality</th>
       <th>model_utility</th>
+      <th>forget_truth_ratio</th>
       <th>forget_quality</th>
       <th>model_utility</th>
+      <th>forget_truth_ratio</th>
       <th>forget_quality</th>
       <th>model_utility</th>
+      <th>forget_truth_ratio</th>
     </tr>
   </thead>
   <tbody>
@@ -160,67 +187,88 @@ __Note:__
       <th>Finetuned</th>
       <td>0.01</td>
       <td>0.60</td>
+      <td>0.47</td>
       <td>2.96e-13</td>
       <td>0.6</td>
+      <td>0.47</td>
       <td>8.08e-22</td>
       <td>0.6</td>
+      <td>0.48</td>
     </tr>
     <tr>
       <th>Retain</th>
       <td>1.0</td>
       <td>0.60</td>
+      <td>0.65</td>
       <td>1.0</td>
-      <td>0.60</td>
+      <td>0.6</td>
+      <td>0.63</td>
       <td>1.0</td>
       <td>0.59</td>
+      <td>0.63</td>
     </tr>
     <tr>
-      <td colspan="10"> </td>
+      <td colspan="20"> </td>
     </tr>
     <tr>
       <th>GradAscent</th>
       <td>0.27</td>
       <td>0.33</td>
+      <td>0.59</td>
       <td>1.94e-119</td>
       <td>0</td>
+      <td>2.52e-23</td>
       <td>1.06e-239</td>
       <td>0</td>
+      <td>2.25e-18</td>
     </tr>
     <tr>
       <th>GradDiff</th>
       <td>0.77</td>
       <td>0.43</td>
+      <td>0.57</td>
       <td>1.94e-119</td>
       <td>0.53</td>
+      <td>3.87e-34</td>
       <td>1.06e-239</td>
       <td>0.49</td>
+      <td>3.53e-27</td>
     </tr>
     <tr>
       <th>IdkDPO</th>
       <td>0.01</td>
       <td>0.51</td>
+      <td>0.60</td>
       <td>1.12e-05</td>
       <td>0.07</td>
+      <td>0.62</td>
       <td>4.64e-12</td>
       <td>0.23</td>
+      <td>0.6</td>
     </tr>
     <tr>
       <th>NPO</th>
       <td>0.92</td>
       <td>0.56</td>
+      <td>0.66</td>
       <td>0.14</td>
       <td>0.45</td>
+      <td>0.7</td>
       <td>0.02</td>
       <td>0.46</td>
+      <td>0.7</td>
     </tr>
     <tr>
       <th>SimNPO</th>
       <td>0.58</td>
       <td>0.46</td>
+      <td>0.55</td>
       <td>5.01e-100</td>
       <td>0.58</td>
+      <td>4.19e-03</td>
       <td>2.47e-203</td>
       <td>0.54</td>
+      <td>1.07e-05</td>
     </tr>
      <tr>
       <th>RMU</th>
