@@ -18,5 +18,5 @@ reference_logs:
       holdout_minKpc_neg_logprob:
         access_key: holdout
 
-handler: relative_auc
+handler: privleak
 ref_value:  0.5

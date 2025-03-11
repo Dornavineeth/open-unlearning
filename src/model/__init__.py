@@ -3,7 +3,6 @@ from omegaconf import DictConfig, open_dict
 import os
 import torch
 import logging
-import warnings
 
 hf_home = os.getenv("HF_HOME", default=None)
 
@@ -51,7 +50,6 @@ def get_model(model_cfg: DictConfig):
             f"Error {e} while fetching model using AutoModelForCausalLM.from_pretrained()."
         )
     tokenizer = get_tokenizer(tokenizer_args)
-
     return model, tokenizer
 
 
