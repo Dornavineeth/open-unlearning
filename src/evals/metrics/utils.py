@@ -104,11 +104,9 @@ def evaluate_probability(model, batch):
 
 
 def tokenwise_logprobs(model, batch, grad=False):
-    """
-    Compute token-wise next token prediction logprobs for all labeled tokens for each sample in a batch. 
-    `grad` decides whether gradients are turned on
-    returns List[Tensor] with Tensors of size seq_len where seq_len is length of labeled tokens
-    """
+    """Compute token-wise next token prediction logprobs for all 
+    labelled tokens for each sample in a batch. 
+    `grad` decides whether gradients are turned on"""
     batch = {k: v.to(model.device) for k, v in batch.items()}
     
     model.train(mode=grad)
@@ -121,7 +119,7 @@ def tokenwise_logprobs(model, batch, grad=False):
     # ^ we don't predict next token for last token, bsz x seq_len-1 x V
     next_tokens = batch["input_ids"][:, 1:].unsqueeze(-1)  # bsz x seq_len-1 x 1
     target_log_probs = torch.gather(log_probs, dim=2, index=next_tokens).squeeze(-1)
-    log_probs_batch = []
+    log_probs = []
     
     for i in range(bsz):
         labels = batch["labels"][i][:-1]
@@ -137,9 +135,20 @@ def tokenwise_logprobs(model, batch, grad=False):
                 "Index 0 in a datapoint's input_ids must not have loss (unignored labels) on it",
                 UserWarning,
             )
-        log_probs_batch.append(target_log_probs[i, start_idx - 1 : end_idx])
+        log_probs.append(target_log_probs[i, start_idx - 1 : end_idx])
     
-    return log_probs_batch
+    return log_probs
+
+def eval_minKpc_neg_logprob(model, batch, percentile):
+    """Compute minK% attack score for each sample in a batch."""
+    token_wise_logprobs = tokenwise_logprobs(model, batch)
+    mink_means = []
+    for result in token_wise_logprobs:
+        scores = np.sort(result.cpu().numpy())
+        top_k = max(1, int(percentile / 100 * len(scores)))
+        mink_mean = -1 * np.mean(scores[:top_k])
+        mink_means.append(mink_mean)
+    return [{"score": float(neglogprob)} for neglogprob in mink_means]
 
 
 class MultiTokenEOSCriteria(StoppingCriteria):
@@ -252,7 +261,7 @@ def eval_text_similarity(model, tokenizer, batch, generation_args):
     gen_texts = tokenizer.batch_decode(
         output[:, input_ids.shape[-1] :],
         skip_special_tokens=True,
-        clean_up_tokenization_spaces=True
+        clean_up_tokenization_spaces=True,
     )
 
     # cut off at stopwords
@@ -280,11 +289,3 @@ def eval_text_similarity(model, tokenizer, batch, generation_args):
         )
     ]
     return scores
-
-
-def extract_target_texts_from_processed_data(tokenizer, batch):
-    """Extract and detokenize text from activated positions in the batch."""
-    labels = batch["labels"]
-    labels = [elem[elem != -100] for elem in labels0]
-    texts = [tokenizer.decode(elem.tolist(), skip_special_tokens=True) for elem in labels]
-    return texts

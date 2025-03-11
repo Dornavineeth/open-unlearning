@@ -14,8 +14,6 @@ from evals.metrics.privacy import (
     relative_auc,
 )
 
-# add imports here
-
 METRICS_REGISTRY: Dict[str, UnlearningMetric] = {}
 
 
@@ -53,5 +51,3 @@ _register_metric(forget_quality)
 _register_metric(hm_aggregate)
 _register_metric(minKpc_negative_logprob)
 _register_metric(relative_auc)
-
-# register MIA here
