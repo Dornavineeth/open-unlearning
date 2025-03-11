@@ -52,6 +52,10 @@ def get_model(model_cfg: DictConfig):
         )
     tokenizer = get_tokenizer(tokenizer_args)
 
+    if abs(tokenizer.vocab_size - model.config.vocab_size) / model.config.vocab_size > 0.05:
+        warnings.warn(
+            f"Vocab sizes of model: {model_args.pretrained_model_name_or_path} and tokenizer: {tokenizer_cfg.pretrained_model_name_or_path} differ by more than 5% which can be a sign of incompatibility."
+        )
     return model, tokenizer
 
 
