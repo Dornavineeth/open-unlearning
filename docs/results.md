@@ -20,7 +20,8 @@ For all the experiments below, we used the following setup
 |-------------------------|------------|
 | **Hardware**           | 2 × L40s GPUs (48GB each) |
 | **Distributed Computing** | [DeepSpeed ZeRO Stage 3 (Accelerate)](https://huggingface.co/docs/accelerate/en/usage_guides/deepspeed) |
-| **Hyperparameters**    | Learning Rate (lr) = 1e-5 <br> α = 1, γ = 1, β = 0.1 (where applicable) <br> Number of Epochs = 10 <br> Optimizer: [paged_adamw_32bit](https://huggingface.co/docs/bitsandbytes/main/en/reference/optim/adamw#bitsandbytes.optim.PagedAdamW) |
+| **Hyperparameters**    | Learning Rate (lr) = 1e-5 <br> α = 1, γ = 1, β = 0.1 (where applicable) <br> Batch size 32 effectively: 8 per device, 4 grad accum steps <br> Number of Epochs = 10 <br> Optimizer: [paged_adamw_32bit](https://huggingface.co/docs/bitsandbytes/main/en/reference/optim/adamw#bitsandbytes.optim.PagedAdamW) |
+
 
 __Note:__ 
 1. The results in the next section: display only some important subsets of metrics for each benchmark, for more evals see `muse*/*_SUMMARY.json`, `tofu*/evals*/*_SUMMARY.json` files on the [HuggingFace space](https://huggingface.co/datasets/open-unlearning/eval).
