@@ -1,0 +1,7 @@
+# @package eval.tofu.metrics.mia_auc
+defaults:
+  - ../../data/datasets@datasets: TOFU_MIA
+  - ../../collator@collators: DataCollatorForSupervisedDatasetwithIndex
+handler: mia_min_k
+batch_size: 32
+k: 0.4
