@@ -4,13 +4,13 @@ from rouge_score import rouge_scorer
 from collections import defaultdict
 from omegaconf import OmegaConf
 import numpy as np
+from sklearn.metrics import auc as get_auc, roc_curve as get_roc_curve
 import scipy as sc
 from torch import nn
 import torch
 from transformers import StoppingCriteria, StoppingCriteriaList, PreTrainedTokenizer
 from data.utils import IGNORE_INDEX
 import warnings
-
 
 def dict_transpose(evals):
     """Transpose a nested dictionary structure to group statistics by item indices."""
@@ -39,6 +39,12 @@ def aggregate_to_1D(x):
 def get_forget_quality(model_tr, reference_tr):
     test_res = sc.stats.ks_2samp(1 / (model_tr + 1e-10), 1 / (reference_tr + 1e-10))
     return {"agg_value": test_res.pvalue}
+
+
+def sweep(ppl, y):
+    fpr, tpr, _ = get_roc_curve(y, -ppl)
+    acc = np.max(1 - (fpr + (1 - tpr)) / 2)
+    return fpr, tpr, get_auc(fpr, tpr), acc
 
 
 def run_batchwise_evals(model, dataloader, batch_eval_fn, batch_eval_fn_args, eval_msg):
@@ -104,9 +110,11 @@ def evaluate_probability(model, batch):
 
 
 def tokenwise_logprobs(model, batch, grad=False):
-    """Compute token-wise next token prediction logprobs for all 
-    labelled tokens for each sample in a batch. 
-    `grad` decides whether gradients are turned on"""
+    """
+    Compute token-wise next token prediction logprobs for all labeled tokens for each sample in a batch. 
+    `grad` decides whether gradients are turned on
+    returns List[Tensor] with Tensors of size seq_len where seq_len is length of labeled tokens
+    """
     batch = {k: v.to(model.device) for k, v in batch.items()}
     
     model.train(mode=grad)
@@ -119,7 +127,7 @@ def tokenwise_logprobs(model, batch, grad=False):
     # ^ we don't predict next token for last token, bsz x seq_len-1 x V
     next_tokens = batch["input_ids"][:, 1:].unsqueeze(-1)  # bsz x seq_len-1 x 1
     target_log_probs = torch.gather(log_probs, dim=2, index=next_tokens).squeeze(-1)
-    log_probs = []
+    log_probs_batch = []
     
     for i in range(bsz):
         labels = batch["labels"][i][:-1]
@@ -127,7 +135,7 @@ def tokenwise_logprobs(model, batch, grad=False):
         actual_indices = (labels != IGNORE_INDEX).nonzero(as_tuple=True)[0]
         num_actual_tokens = actual_indices.numel()
         if num_actual_tokens == 0:
-            # append a 1D tensor with no grad and a zero value to log_probs
+            log_probs_batch.append(torch.tensor([0.0], device=labels.device))
             continue
         start_idx, end_idx = actual_indices[0].item(), actual_indices[-1].item()
         if start_idx == 0:
@@ -135,20 +143,46 @@ def tokenwise_logprobs(model, batch, grad=False):
                 "Index 0 in a datapoint's input_ids must not have loss (unignored labels) on it",
                 UserWarning,
             )
-        log_probs.append(target_log_probs[i, start_idx - 1 : end_idx])
+        log_probs_batch.append(target_log_probs[i, start_idx - 1 : end_idx])
     
-    return log_probs
+    return log_probs_batch
 
-def eval_minKpc_neg_logprob(model, batch, percentile):
-    """Compute minK% attack score for each sample in a batch."""
-    token_wise_logprobs = tokenwise_logprobs(model, batch)
-    mink_means = []
-    for result in token_wise_logprobs:
-        scores = np.sort(result.cpu().numpy())
-        top_k = max(1, int(percentile / 100 * len(scores)))
-        mink_mean = -1 * np.mean(scores[:top_k])
-        mink_means.append(mink_mean)
-    return [{"score": float(neglogprob)} for neglogprob in mink_means]
+
+def tokenwise_vocab_logprobs(model, tokens, grad=False):
+    """Get vocabulary-wise log probabilities for each token in the sequence.
+    
+    Returns:
+        List[Tensor]: List of tensors of shape (N, V) containing log probabilities
+                      for each sequence, where N is sequence length and V is vocab size.
+    """
+    batch = {k: v.to(model.device) for k, v in tokens.items()}
+    model.train(mode=grad)
+    with torch.set_grad_enabled(grad):
+        output = model(**batch)
+    
+    logits = output.logits
+    bsz, seq_len, V = logits.shape
+    log_probs = torch.nn.functional.log_softmax(logits, dim=-1)[:, :-1, :]  # Don't predict for last token
+    
+    # Process each sequence in batch separately
+    log_probs_batch = []
+    for i in range(bsz):
+        labels = batch["labels"][i][:-1]
+        # Only include positions that have labels
+        actual_indices = (labels != IGNORE_INDEX).nonzero(as_tuple=True)[0]
+        if len(actual_indices) == 0:
+            log_probs_batch.append(torch.zeros(1, V, device=labels.device))
+            continue
+        start_idx, end_idx = actual_indices[0].item(), actual_indices[-1].item()
+        if start_idx == 0:
+            warnings.warn(
+                "Index 0 in a datapoint's input_ids must not have loss (unignored labels) on it",
+                UserWarning,
+            )
+        # Return full distribution for each position: shape (N, V)
+        log_probs_batch.append(log_probs[i, start_idx - 1 : end_idx])
+    
+    return log_probs_batch
 
 
 class MultiTokenEOSCriteria(StoppingCriteria):
@@ -261,7 +295,7 @@ def eval_text_similarity(model, tokenizer, batch, generation_args):
     gen_texts = tokenizer.batch_decode(
         output[:, input_ids.shape[-1] :],
         skip_special_tokens=True,
-        clean_up_tokenization_spaces=True,
+        clean_up_tokenization_spaces=True
     )
 
     # cut off at stopwords
@@ -289,3 +323,11 @@ def eval_text_similarity(model, tokenizer, batch, generation_args):
         )
     ]
     return scores
+
+
+def extract_target_texts_from_processed_data(tokenizer, batch):
+    """Extract and detokenize text from activated positions in the batch."""
+    labels = batch["labels"]
+    labels = [elem[elem != -100] for elem in labels]
+    texts = [tokenizer.decode(elem.tolist(), skip_special_tokens=True) for elem in labels]
+    return texts
