@@ -10,8 +10,15 @@ from evals.metrics.memorization import (
 )
 from evals.metrics.privacy import (
     forget_quality,
-    minKpc_negative_logprob,
-    relative_auc,
+    privleak,
+)
+from evals.metrics.mia import (
+    mia_loss,
+    mia_min_k,
+    mia_min_k_plus_plus,
+    mia_gradnorm,
+    mia_zlib,
+    mia_reference
 )
 
 METRICS_REGISTRY: Dict[str, UnlearningMetric] = {}
@@ -49,5 +56,12 @@ _register_metric(rouge)
 _register_metric(truth_ratio)
 _register_metric(forget_quality)
 _register_metric(hm_aggregate)
-_register_metric(minKpc_negative_logprob)
-_register_metric(relative_auc)
+_register_metric(privleak)
+
+# Register MIA metrics
+_register_metric(mia_loss)
+_register_metric(mia_min_k)
+_register_metric(mia_min_k_plus_plus)
+_register_metric(mia_gradnorm)
+_register_metric(mia_zlib)
+_register_metric(mia_reference)
