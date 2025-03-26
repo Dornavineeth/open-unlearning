@@ -4,8 +4,10 @@ defaults:
   - ../../collator@collators: DataCollatorForSupervisedDatasetwithIndex
 handler: mia_min_k
 batch_size: 8
-k: 0.4
-
+k: 0.4 # for minK/minKpp
+# arguments used in other attacks
+# reference_model_path: muse-bench/MUSE-Books_retrain
+# p: 2
 datasets:
   MUSE_MIA_holdout:
     args:

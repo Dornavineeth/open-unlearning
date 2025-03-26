@@ -34,7 +34,11 @@ def forget_quality(model, **kwargs):
 def privleak(model, **kwargs):
     """Gives a relative comparison of a statistic computed on a model to a reference retain model"""
     score = kwargs["pre_compute"]["forget"]["agg_value"]
-    ref = kwargs["ref_value"]
-    if 'reference_logs' in kwargs:
+    try:
         ref = kwargs["reference_logs"]["retain_model_logs"]["retain"]["agg_value"]
+    except Exception as _:
+        logger.warning(
+            f"retain_model_logs evals not provided for privleak, using default retain auc of {kwargs['ref_value']}"
+        )
+        ref = kwargs["ref_value"]
     return {'agg_value': (score-ref)/ref*100}
