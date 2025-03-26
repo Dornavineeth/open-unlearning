@@ -66,7 +66,6 @@ Adding a new component listed below requires defining a new class, registering i
 5. [Model](components#model) - LLM used in unlearning
 6. [Collator](components#collator) - Handles data collation logic
 7. [Experiment](components#experiment) - Combines components into a final experiment config
-8. 
 
 ## Contributing a New Unlearning Method
 
@@ -105,7 +104,7 @@ git push origin main
 ```
 
 
-## Contributing a New Unlearning Benchmark
+## Contributing to Unlearning Benchmark Evaluations
 
 Evaluating LLM unlearning is essential for assessing the effectiveness of different unlearning methods. While various benchmarks and metrics exist, identifying the most suitable ones for capturing the nuances of unlearning remains an open challenge.
 

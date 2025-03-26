@@ -130,7 +130,7 @@ bash scripts/tofu_unlearn.sh
 bash scripts/muse_unlearn.sh
 ```
 
-The above scripts are not tuned and uses default hyper parameter settings. We encourage you to tune your methods and add your fina results in [`community/leaderboard.md`](community/leaderboard.md).
+The above scripts are not tuned and uses default hyper parameter settings. We encourage you to tune your methods and add your final results in [`community/leaderboard.md`](community/leaderboard.md).
 
 ---
 
