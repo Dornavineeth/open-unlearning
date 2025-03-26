@@ -1,6 +1,8 @@
 """
     Attack implementations.
 """
+from transformers import AutoModelForCausalLM
+
 from evals.metrics.base import unlearning_metric
 from evals.metrics.mia.loss import LOSSAttack
 from evals.metrics.mia.min_k import MinKProbAttack
@@ -48,9 +50,10 @@ def mia_zlib(model, **kwargs):
 
 @unlearning_metric(name="mia_reference")
 def mia_reference(model, **kwargs):
-    if "reference_model" not in kwargs:
+    if "reference_model_path" not in kwargs:
         raise ValueError("Reference model must be provided in kwargs")
+    reference_model = AutoModelForCausalLM.from_pretrained(kwargs["reference_model_path"])
     return mia_auc(ReferenceAttack, model, data=kwargs["data"],
                    collator=kwargs["collators"],
                    batch_size=kwargs["batch_size"],
-                   reference_model=kwargs["reference_model"])
+                   reference_model=reference_model)
