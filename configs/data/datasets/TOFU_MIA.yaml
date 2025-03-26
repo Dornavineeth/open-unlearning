@@ -14,9 +14,11 @@ TOFU_QA_holdout:
   handler: QADataset
   args:
     hf_args:
-      name: "holdout10"
+      # name: "holdout10"
+      # path: "locuslab/TOFU"
+      path: "json"
+      data_files: "/scratch3/workspace/amekala_umass_edu-ulv2/Vineeth/TOFU_V2/tofu_gen/holdout.jsonl"
       split: "train"
-      path: "locuslab/TOFU" # give local path
     question_key: "question"
     answer_key: "answer"
     max_length: 512
