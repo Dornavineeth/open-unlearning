@@ -7,12 +7,12 @@ from evals.metrics.mia.all_attacks import Attack
 from evals.metrics.utils import tokenwise_logprobs
 
 class GradNormAttack(Attack):
-    def __init__(self, model, p):
-        super().__init__(model)
+    
+    def setup(self, p, **kwargs):
         if p not in [1, 2, float('inf')]:
             raise ValueError(f"Invalid p-norm value: {p}")
         self.p = p
-
+       
     def compute_batch_values(self, batch):
         """Compute gradients w.r.t model parameters."""
         

@@ -1,11 +1,9 @@
 import torch as torch
 import numpy as np
-from evals.metrics.mia.all_attacks import Attack
+from evals.metrics.mia.min_k import MinKProbAttack
 from evals.metrics.utils import tokenwise_vocab_logprobs, tokenwise_logprobs
 
-class MinKPlusPlusAttack(Attack):
-    def setup(self, k=0.2, **kwargs):
-        self.k = k
+class MinKPlusPlusAttack(MinKProbAttack):
 
     def compute_batch_values(self, batch):
         """Get both token-wise and vocab-wise log probabilities for the batch."""

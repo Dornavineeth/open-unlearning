@@ -6,10 +6,7 @@ from evals.metrics.mia.all_attacks import Attack
 from evals.metrics.utils import tokenwise_logprobs
 
 class MinKProbAttack(Attack):
-
-    def __init__(self, model):
-        super().__init__(config=None, target_model=model, ref_model=None)
-
+    
     def setup(self, k=0.2, **kwargs):
         self.k = k
 

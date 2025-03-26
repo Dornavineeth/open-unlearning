@@ -6,9 +6,6 @@ from evals.metrics.utils import evaluate_probability
 
 class LOSSAttack(Attack):
 
-    def __init__(self, model):
-        super().__init__(model)
-
     def compute_batch_values(self, batch):
         """Compute probabilities and losses for the batch."""
         return evaluate_probability(self.model, batch)

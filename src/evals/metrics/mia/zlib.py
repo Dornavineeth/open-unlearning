@@ -10,10 +10,6 @@ from evals.metrics.utils import evaluate_probability, extract_target_texts_from_
 
 class ZLIBAttack(Attack):
 
-    def __init__(self, model, tokenizer):
-        super().__init__(model)
-        self.tokenizer = tokenizer
-
     def setup(self, tokenizer=None, **kwargs):
         """Setup tokenizer."""
         self.tokenizer = tokenizer or self.model.tokenizer
