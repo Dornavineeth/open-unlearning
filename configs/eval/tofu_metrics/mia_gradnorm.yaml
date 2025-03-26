@@ -1,0 +1,8 @@
+# @package eval.tofu.metrics.mia_gradnorm
+defaults:
+  - ../../data/datasets@datasets: TOFU_MIA
+  - ../../collator@collators: DataCollatorForSupervisedDatasetwithIndex
+
+handler: mia_gradnorm
+batch_size: 1
+p: 2

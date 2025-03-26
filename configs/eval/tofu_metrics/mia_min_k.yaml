@@ -1,0 +1,7 @@
+# @package eval.tofu.metrics.mia_min_k
+defaults:
+  - ../../data/datasets@datasets: TOFU_MIA
+  - ../../collator@collators: DataCollatorForSupervisedDatasetwithIndex
+batch_size: 32
+handler: mia_min_k
+k: 0.4
