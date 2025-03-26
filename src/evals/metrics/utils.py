@@ -4,7 +4,6 @@ from rouge_score import rouge_scorer
 from collections import defaultdict
 from omegaconf import OmegaConf
 import numpy as np
-from sklearn.metrics import auc as get_auc, roc_curve as get_roc_curve
 import scipy as sc
 from torch import nn
 import torch
@@ -39,12 +38,6 @@ def aggregate_to_1D(x):
 def get_forget_quality(model_tr, reference_tr):
     test_res = sc.stats.ks_2samp(1 / (model_tr + 1e-10), 1 / (reference_tr + 1e-10))
     return {"agg_value": test_res.pvalue}
-
-
-def sweep(ppl, y):
-    fpr, tpr, _ = get_roc_curve(y, -ppl)
-    acc = np.max(1 - (fpr + (1 - tpr)) / 2)
-    return fpr, tpr, get_auc(fpr, tpr), acc
 
 
 def run_batchwise_evals(model, dataloader, batch_eval_fn, batch_eval_fn_args, eval_msg):

@@ -6,7 +6,8 @@ from evals.metrics.mia.min_k import MinKProbAttack
 from evals.metrics.mia.min_k_plus_plus import MinKPlusPlusAttack
 from evals.metrics.mia.gradnorm import GradNormAttack
 
-from evals.metrics.utils import sweep
+from sklearn.metrics import roc_auc_score
+
 
 import numpy as np
 
@@ -38,6 +39,8 @@ def mia_auc(attack_cls, model, data, collator, batch_size, **kwargs):
       - kwargs: additional optional parameters (e.g. k, p, tokenizer, reference_model).
       
     Returns a dict containing the attack outputs, including "acc" and "auc".
+    
+    Note on convention: auc is 1 when the forget data is much more likely than the holdout data
     """
     # Build attack arguments from common parameters and any extras.
     attack_args = {
@@ -54,7 +57,7 @@ def mia_auc(attack_cls, model, data, collator, batch_size, **kwargs):
     forget_scores = [elem["score"] for elem in output["forget"]["value_by_index"].values()]
     holdout_scores = [elem["score"] for elem in output["holdout"]["value_by_index"].values()]
     scores = np.array(forget_scores + holdout_scores)
-    labels = np.array([0] * len(forget_scores) + [1] * len(holdout_scores))
-    _, _, auc_score, acc = sweep(scores, labels)
-    output["acc"], output["auc"], output["agg_value"] = acc, auc_score, auc_score
+    labels = np.array([0] * len(forget_scores) + [1] * len(holdout_scores)) # see note above
+    auc_value = roc_auc_score(labels, scores)
+    output["auc"], output["agg_value"] = auc_value, auc_value
     return output

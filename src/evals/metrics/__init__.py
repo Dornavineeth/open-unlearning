@@ -11,6 +11,7 @@ from evals.metrics.memorization import (
 from evals.metrics.privacy import (
     forget_quality,
     privleak,
+    rel_diff
 )
 from evals.metrics.mia import (
     mia_loss,
@@ -57,6 +58,7 @@ _register_metric(truth_ratio)
 _register_metric(forget_quality)
 _register_metric(hm_aggregate)
 _register_metric(privleak)
+_register_metric(rel_diff)
 
 # Register MIA metrics
 _register_metric(mia_loss)
