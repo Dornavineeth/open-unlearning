@@ -150,17 +150,6 @@ class UnlearningMetric:
         """
         return f"{type(self).__name__} {self.name}"
 
-
-# inputs to the metric are: (see memorization.py for example of usage)
-# model
-# kwargs
-#     pre_compute: dictionary containing prior metrics needed for current metric computation
-#     batch_size, generation_args: generic setting values
-#     data: the torch dataset
-#     tokenizer: the loaded object
-#     collator: the loaded object
-#     metric specific args like hyperparams - including rouge_type, aggregator
-
 # decorator that wraps simple user-defined metric python functions into callable UnlearningMetric objects
 class unlearning_metric:
     def __init__(self, name: str):
