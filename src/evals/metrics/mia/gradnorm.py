@@ -14,7 +14,7 @@ class GradNormAttack(Attack):
         self.p = p
        
     def compute_batch_values(self, batch):
-        """Compute gradients w.r.t model parameters."""
+        """Compute negative gradients w.r.t model parameters."""
         
         batch_log_probs = tokenwise_logprobs(self.model, batch, grad=True)
         batch_loss = [-torch.mean(lps) for lps in batch_log_probs]

@@ -15,7 +15,7 @@ class MinKProbAttack(Attack):
         return tokenwise_logprobs(self.model, batch, grad=False)
 
     def compute_score(self, sample_stats):
-        """Score single sample using min-k% probability attack."""
+        """Score single sample using min-k negative log probs scores attack."""
         lp = sample_stats.cpu().numpy()
         if lp.size == 0:
             return 0

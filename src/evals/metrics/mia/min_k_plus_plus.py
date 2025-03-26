@@ -13,7 +13,7 @@ class MinKPlusPlusAttack(MinKProbAttack):
                 for vlp, tlp in zip(vocab_log_probs, token_log_probs)]
 
     def compute_score(self, sample_stats):
-        """Score using min-k++ probability attack with vocab-wise normalization."""
+        """Score using min-k negative log probs scores with vocab-wise normalization."""
         all_probs = sample_stats['vocab_log_probs']
         target_prob = sample_stats['token_log_probs']
         
