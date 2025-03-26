@@ -12,7 +12,8 @@ from evals.metrics.mia.zlib import ZLIBAttack
 from evals.metrics.mia.reference import ReferenceAttack
 
 from evals.metrics.mia.utils import mia_auc
-
+import logging
+logger = logging.getLogger("metrics")
 
 @unlearning_metric(name="mia_loss")
 def mia_loss(model, **kwargs):
@@ -52,7 +53,12 @@ def mia_zlib(model, **kwargs):
 def mia_reference(model, **kwargs):
     if "reference_model_path" not in kwargs:
         raise ValueError("Reference model must be provided in kwargs")
-    reference_model = AutoModelForCausalLM.from_pretrained(kwargs["reference_model_path"])
+    logger.info(f"Loading reference model from {kwargs['reference_model_path']}")
+    reference_model = AutoModelForCausalLM.from_pretrained(
+        kwargs["reference_model_path"],
+        torch_dtype=model.dtype,
+        device_map={"": model.device}
+    )
     return mia_auc(ReferenceAttack, model, data=kwargs["data"],
                    collator=kwargs["collators"],
                    batch_size=kwargs["batch_size"],

@@ -10,9 +10,9 @@ class ReferenceAttack(Attack):
         self.reference_model = reference_model
 
     def compute_batch_values(self, batch):
-        """Compute loss for both target and reference models."""
-        target_results = evaluate_probability(self.model, batch)
+        """Compute scores for both target and reference models."""
         ref_results = evaluate_probability(self.reference_model, batch)
+        target_results = evaluate_probability(self.model, batch)
         return [{'target_loss': t['avg_loss'], 'ref_loss': r['avg_loss']} 
                 for t, r in zip(target_results, ref_results)]
 
