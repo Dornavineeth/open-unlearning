@@ -54,7 +54,7 @@ We provide several variants for each of the components in the unlearning pipelin
   - 🚀 [Perform Unlearning](#-perform-unlearning)
   - 📊 [Perform an Evaluation](#-perform-an-evaluation)
   - 📜 [Running Baseline Experiments](#-running-baseline-experiments)
-- ➕ [How to Add New Components](#-how-to-add-new-components)
+- ➕ [How to Contribute](#-how-to-contribute)
 - 📚 [Further Documentation](#-further-documentation)
 - 🔗 [Support & Contributors](#-support--contributors)
 - 📝 [Citing this work](#-citing-this-work)
@@ -123,24 +123,21 @@ For more details about creating and running evaluations, refer [`docs/evaluation
 
 
 ### 📜 Running Baseline Experiments
-The scripts below execute standard baseline unlearning experiments on the TOFU and MUSE datasets, evaluated using their corresponding benchmarks. The expected results for these are in [`docs/results.md`](docs/results.md).
+The scripts below execute standard baseline unlearning experiments on the TOFU and MUSE datasets, evaluated using their corresponding benchmarks. The expected results for these are in [`docs/repro.md`](docs/repro.md).
 
 ```bash
 bash scripts/tofu_unlearn.sh
 bash scripts/muse_unlearn.sh
 ```
 
+The above scripts are not tuned and uses default hyper parameter settings. We encourage you to tune your methods and add your fina results in [`community/leaderboard.md`](community/leaderboard.md).
+
 ---
 
-## ➕ How to Add New Components
+## ➕ How to Contribute
 
-Adding a new component (trainer, evaluation metric, benchmark, model, or dataset) requires defining a new class, registering it, and creating a configuration file. Learn more about adding new components in [`docs/components.md`](docs/components.md).
+If you are interested in contributing to our work, please have a look at [`contributing.md`](docs/contributing.md) guide.
 
-Please feel free to raise a pull request for any new features after setting up the environment in development mode.
-
-```bash
-pip install .[dev]
-```
 
 ## 📚 Further Documentation
 
@@ -148,11 +145,12 @@ For more in-depth information on specific aspects of the framework, refer to the
 
 | **Documentation**                              | **Contains**                                                                                                       |
 |------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
-| [`docs/components.md`](docs/components.md)       | Instructions on how to add new components such as trainers, benchmarks, metrics, models, datasets, etc.              |
+| [`docs/contributing.md`](docs/contributing.md)       | Instructions on how to add new methods, benchmarks, components such as trainers, benchmarks, metrics, models, datasets, etc.              |
 | [`docs/evaluation.md`](docs/evaluation.md)       | Detailed instructions on creating and running evaluation metrics and benchmarks.                                     |
 | [`docs/experiments.md`](docs/experiments.md)     | Guide on running experiments in various configurations and settings, including distributed training, fine-tuning, and overriding arguments. |
 | [`docs/hydra.md`](docs/hydra.md)                 | Explanation of the Hydra features used in configuration management for experiments.                                  |
-| [`docs/results.md`](docs/results.md)             | Reference results from various unlearning methods run using this framework on TOFU and MUSE benchmarks.              |
+| [`community/leaderboard.md`](community/leaderboard.md)             | Reference results from various unlearning methods run using this framework on TOFU and MUSE benchmarks.              |
+| [`docs/repro.md`](docs/repro.md) (deprecated)            | Results are provided solely for reproducibility purposes, without any parameter tuning.             |
 ---
 
 ## 🔗 Support & Contributors
