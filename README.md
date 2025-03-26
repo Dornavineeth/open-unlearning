@@ -122,7 +122,7 @@ An example command for launching a TOFU evaluation process on `forget10` split:
 ```bash
 model=Llama-3.2-1B-Instruct
 python src/eval.py --config-name=eval.yaml experiment=eval/tofu/default \
-  model=${model}$ \
+  model=${model} \
   model.model_args.pretrained_model_name_or_path=open-unlearning/tofu_${model}_full \
   retain_logs_path=saves/eval/tofu_${model}_retain90/TOFU_EVAL.json \
   task_name=SAMPLE_EVAL
