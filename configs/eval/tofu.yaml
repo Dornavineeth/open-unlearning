@@ -4,7 +4,13 @@
 defaults: # include all defined metrics files
   - tofu_metrics: # When you import a metric here, its configuration automatically populates the 
   # metric key below, enabled by the @package directive at the top of each configuration file.
-    - mia
+    # - mia_min_k_plus_plus
+    # - mia_min_k
+    # - mia_loss
+    # - mia_reference
+    # - mia_zlib
+    # - mia_gradnorm
+    - privleak
     - forget_quality
     - forget_Q_A_Prob
     - forget_Q_A_ROUGE
