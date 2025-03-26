@@ -14,8 +14,7 @@ class GradNormAttack(Attack):
         self.p = p
        
     def compute_batch_values(self, batch):
-        """Compute negative gradients w.r.t model parameters."""
-        
+        """Compute gradients of examples w.r.t model parameters. More grad norm => more loss."""
         batch_log_probs = tokenwise_logprobs(self.model, batch, grad=True)
         batch_loss = [-torch.mean(lps) for lps in batch_log_probs]
         batch_grad_norms = []
@@ -31,4 +30,4 @@ class GradNormAttack(Attack):
 
     def compute_score(self, sample_stats):
         """Return negative gradient norm as the attack score."""
-        return -sample_stats.cpu().numpy()
+        return sample_stats.cpu().to(torch.float32).numpy()
