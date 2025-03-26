@@ -9,7 +9,7 @@ from evals.metrics.memorization import (
     hm_aggregate,
 )
 from evals.metrics.privacy import (
-    forget_quality,
+    ks_test,
     privleak,
     rel_diff
 )
@@ -55,7 +55,7 @@ _register_metric(probability)
 _register_metric(probability_w_options)
 _register_metric(rouge)
 _register_metric(truth_ratio)
-_register_metric(forget_quality)
+_register_metric(ks_test)
 _register_metric(hm_aggregate)
 _register_metric(privleak)
 _register_metric(rel_diff)
