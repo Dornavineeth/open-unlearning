@@ -41,4 +41,4 @@ def privleak(model, **kwargs):
             f"retain_model_logs evals not provided for privleak, using default retain auc of {kwargs['ref_value']}"
         )
         ref = kwargs["ref_value"]
-    return {'agg_value': (score-ref)/ref*100}
+    return {'agg_value': (score-ref)/(ref+1e-10)*100}
