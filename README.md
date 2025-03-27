@@ -29,26 +29,27 @@ We invite the LLM unlearning community to collaborate by adding new benchmarks, 
 
 ### 📢 Updates
 
-#### [Mar 27, 2025]  
+#### [Mar 28, 2025]
 - **MIA**: Added 6 membership inference attacks—LOSS, ZLib, Reference, GradNorm, MinK, and MinK++ as options in the evaluation metrics.
 - **TOFU Benchmark**: Now includes a holdout set and supports MIA attack-based evaluation. You can now compute MUSE's privleak on TOFU.
+
+#### [Mar 27, 2025]
+- **Easier contributions, leaderboard and reproducibility**: We've updated the documentation to make contributing new unlearning methods and benchmarks much easier. Users can document additions better and also update a leaderboard with their results. See [this section](#-how-to-contribute) for details.
+
+
+<details>
+<summary><b>Older Updates</b></summary>
+
+#### [Mar 9, 2025]
 - **Unlearning Methods**: Added support for [RMU](https://arxiv.org/abs/2403.03218) (representation-engineering based unlearning).
 
 #### [Feb 27, 2025]  
 ⚠️ **Repository Update**: This repo replaces the original TOFU codebase at [`github.com/locuslab/tofu`](https://github.com/locuslab/tofu), which is no longer maintained.
 
----
-
-<!--
-<details>
-<summary>📢 <b>Older Updates</b></summary>
-
-#### [Date]  
-- Update 1
-- Update 2
-
 </details>
--->
+
+
+---
 
 ## 🗃️ Available Components
 
@@ -69,14 +70,12 @@ We provide several variants for each of the components in the unlearning pipelin
 - 📢 [Updates](#-updates)
 - 🗃️ [Available Components](#%EF%B8%8F-available-components)
 - ⚡ [Quickstart](#-quickstart)
-  - 🛠️ [Environment Setup](#-environment-setup)
-  - 💾 [Data Setup](#-data-setup)
 - 🔄 [Updated TOFU benchmark](#-updated-tofu-benchmark)
 - 🧪 [Running Experiments](#-running-experiments)
   - 🚀 [Perform Unlearning](#-perform-unlearning)
   - 📊 [Perform an Evaluation](#-perform-an-evaluation)
   - 📜 [Running Baseline Experiments](#-running-baseline-experiments)
-- ➕ [How to Add New Components](#-how-to-add-new-components)
+- ➕ [How to Contribute](#-how-to-contribute)
 - 📚 [Further Documentation](#-further-documentation)
 - 🔗 [Support & Contributors](#-support--contributors)
 - 📝 [Citing this work](#-citing-this-work)
@@ -87,20 +86,16 @@ We provide several variants for each of the components in the unlearning pipelin
 
 ## ⚡ Quickstart
 
-### 🛠️ Environment Setup
-
 ```bash
+# environment setup
 conda create -n unlearning python=3.11
 conda activate unlearning
 pip install .
 pip install --no-build-isolation flash-attn==2.6.3
-```
 
-### 💾 Data Setup
-Download the log files containing metric results from the models used in the supported benchmarks (including the retain model logs used to compare the unlearned models against).
-
-```bash
-python setup_data.py # populates saves/eval with evaluation results of the uploaded models
+# data setup
+python setup_data.py  # saves/eval now contains evaluation results of the uploaded models
+# Downloads log files with metric eval results (incl retain model logs) from the models used in the supported benchmarks.
 ```
 
 ---
@@ -152,24 +147,21 @@ For more details about creating and running evaluations, refer [`docs/evaluation
 
 
 ### 📜 Running Baseline Experiments
-The scripts below execute standard baseline unlearning experiments on the TOFU and MUSE datasets, evaluated using their corresponding benchmarks. The expected results for these are in [`docs/results.md`](docs/results.md).
+The scripts below execute standard baseline unlearning experiments on the TOFU and MUSE datasets, evaluated using their corresponding benchmarks. The expected results for these are in [`docs/repro.md`](docs/repro.md).
 
 ```bash
 bash scripts/tofu_unlearn.sh
 bash scripts/muse_unlearn.sh
 ```
 
+The above scripts are not tuned and uses default hyper parameter settings. We encourage you to tune your methods and add your final results in [`community/leaderboard.md`](community/leaderboard.md).
+
 ---
 
-## ➕ How to Add New Components
+## ➕ How to Contribute
 
-Adding a new component (trainer, evaluation metric, benchmark, model, or dataset) requires defining a new class, registering it, and creating a configuration file. Learn more about adding new components in [`docs/components.md`](docs/components.md).
+If you are interested in contributing to our work, please have a look at [`contributing.md`](docs/contributing.md) guide.
 
-Please feel free to raise a pull request for any new features after setting up the environment in development mode.
-
-```bash
-pip install .[dev]
-```
 
 ## 📚 Further Documentation
 
@@ -177,11 +169,12 @@ For more in-depth information on specific aspects of the framework, refer to the
 
 | **Documentation**                              | **Contains**                                                                                                       |
 |------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
-| [`docs/components.md`](docs/components.md)       | Instructions on how to add new components such as trainers, benchmarks, metrics, models, datasets, etc.              |
+| [`docs/contributing.md`](docs/contributing.md)       | Instructions on how to add new methods, benchmarks, components such as trainers, benchmarks, metrics, models, datasets, etc.              |
 | [`docs/evaluation.md`](docs/evaluation.md)       | Detailed instructions on creating and running evaluation metrics and benchmarks.                                     |
 | [`docs/experiments.md`](docs/experiments.md)     | Guide on running experiments in various configurations and settings, including distributed training, fine-tuning, and overriding arguments. |
 | [`docs/hydra.md`](docs/hydra.md)                 | Explanation of the Hydra features used in configuration management for experiments.                                  |
-| [`docs/results.md`](docs/results.md)             | Reference results from various unlearning methods run using this framework on TOFU and MUSE benchmarks.              |
+| [`community/leaderboard.md`](community/leaderboard.md)             | Reference results from various unlearning methods run using this framework on TOFU and MUSE benchmarks.              |
+| [`docs/repro.md`](docs/repro.md) (deprecated)            | Results are provided solely for reproducibility purposes, without any parameter tuning.             |
 ---
 
 ## 🔗 Support & Contributors
