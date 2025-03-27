@@ -1,29 +1,24 @@
-# Your method name / Paper Title
+# TITLE
 
-List of Authors: 
-
-Link to Paper: 
+- Paper title, authors, links.
 
 
-# Introduction
-
-Provide a concise summary of your method. Explain its key contributions and how it differs from existing approaches. Please avoid using images to keep repository size manageable.
-
+Provide a concise summary of your method details and its contributions. Please avoid using large sized images.
 
 # Setup
 
 Please include the experimental setup such as
 
-- [ ] **Hyperparameters & Search Space:** Specify key hyperparameters, their search ranges, total trials etc.
+- [ ] **Hyperparameters & Search Space:** Specify key hyperparameters, their search ranges, number of trials etc.
 - [ ] **Computational Setup:** Mention the type and number of GPUs used.
-- [ ] **DeepSpeed Configuration:** If any modifications were made to the default DeepSpeed config, specify them here.
-- [ ] **Other Relevant Details:** Any additional setup details crucial for reproducing your method.
+- [ ] **DeepSpeed Configuration:** If any modifications were made to the default DeepSpeed config, specify them here. (You may include the config as a code block.)
+- [ ] **Other Details:** Any additional setup details crucial for reproducing your method.
 
 # Results
 
 To replicate your results, provide a `run.sh` script that contains all necessary commands to reproduce the final results. Ensure the script is well-documented.
 
-We would appreciate it if you could upload the final unlearned model along with its `evals` folder to Hugging Face and provide the link here.
+It would be appreciated if you can upload the final unlearned model(s) along with their `evals` folders to HuggingFace and provide the link(s) here. As the evaluations are updated, this would help us re-evaluate your model(s).
 
 # Citation
 
@@ -32,7 +27,7 @@ If you use this work, please cite:
 
 ```bibtex
 
-<INCLUDE YOUR CITATION>
+<YOUR CITATION bibtex>
 
 @misc{openunlearning2025,
   title={OpenUnlearning: A Unified Framework for LLM Unlearning Benchmarks},

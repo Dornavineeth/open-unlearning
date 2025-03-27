@@ -1,14 +1,14 @@
-# Contribute to Open Unlearning
+# Contributing
 
-Everyone is welcome to contribute, and every contribution is valued. While code contributions are important, there are many other ways to support the community, answering questions, assisting others, and improving documentation are all immensely valuable.
+Everyone is welcome to contribute, and every contribution is valued. Aside from coding components, answering questions, assisting others, and improving documentation are all appreciated.
 
-You can also help by spreading the word! If you find this project useful, consider giving the repository a ⭐️ to show your support.
+You can also help by spreading the word! If you find this project useful, please share it with others, cite it, link it on your repositories and posts, or simply ⭐️ the repo to show your support.
 
-This guide was heavily inspired by the awesome [transformers](https://github.com/huggingface/transformers/blob/main/CONTRIBUTING.md) guide to contributing.
+> 🤝 This guide is heavily borrowed by the awesome [transformers](https://github.com/huggingface/transformers/blob/main/CONTRIBUTING.md) guide to contributing.
 
-## Ways to contribute
+## Ways to Contribute
 
-There are several ways you can contribute to Open Unlearning:
+There are several ways you can contribute to OpenUnlearning:
 
 * Fix issues with the existing code.
 * Submit issues related to bugs or desired new features.
@@ -17,34 +17,29 @@ There are several ways you can contribute to Open Unlearning:
 * Implement new evaluations.
 * Contribute to the documentation.
 
-> All contributions are equally valuable to the community. 🥰
-
-## Fixing issues
+## Fixing Issues
 
 If you notice an issue with the existing code and have a fix in mind, feel free to [start contributing](#create-a-pull-request) and open a Pull Request!
 
-## Submitting a bug-related issue or feature request
+## Submitting a Bug-Related Issue or Feature Request
 
-Do your best to follow these guidelines when submitting a bug-related issue or a feature
-request. It will make it easier for us to come back to you quickly and with good
-feedback.
+Do your best to follow these guidelines when submitting a bug-related issue or a feature request. It will make it easier for us to come back to you quickly and with good feedback.
 
-### Did you find a bug?
+### Did You Find a Bug?
 
-Before you report an issue, we would really appreciate it if you could **make sure the bug was not
-already reported** (use the search bar on GitHub under Issues). Your issue should also be related to bugs in the library itself, and not your code. If you're unsure whether the bug is in your code or the library, please ask in the [discord](https://discord.gg/v4aYBZsW) first. This helps us respond quicker to fixing issues related to the library versus general questions.
+Before you report an issue, we would really appreciate it if you could **make sure the bug was not already reported** (use the search bar on GitHub under Issues). Please try to ensure that the bug is in OpenUnlearning itself, and not your code.
 
-Once you've confirmed the bug hasn't already been reported, please include the following information in your issue so we can quickly resolve it:
+Please include the following information in your issue so we can quickly resolve it:
 
 * A short, self-contained, code snippet that allows us to reproduce the bug.
-* The *full* traceback if an exception is raised.
+* The **full** traceback if an exception is raised.
 * The hardware used to run the experiment, including specifications such as the number and type of GPUs etc.
+* The hydra config file corresponding to the experiment if needed (since these files ae long you may link them or use a markdown dropdown in your issue).
 * Attach any other additional information, like screenshots, you think may help.
 
+### Do You Want a New Feature?
 
-### Do you want a new feature?
-
-If there is a new feature you'd like to see in Open Unlearning, please open an issue and describe:
+If there is a new feature you'd like to see in OpenUnlearning, please open an issue and describe:
 
 1. What is the *motivation* behind this feature? Is it related to a problem or frustration with the library? Is it something you worked on and think it could benefit the community?
 
@@ -54,40 +49,42 @@ If there is a new feature you'd like to see in Open Unlearning, please open an i
 3. Provide a *code snippet* that demonstrates the features usage.
 4. If the feature is related to a paper, please include a link.
 
-## Do you want to support new components
-
+## Do You Want to Support New Components?
 
 Adding a new component listed below requires defining a new class, registering it, and creating a configuration file. Learn more about adding new components in [`docs/components.md`](docs/components.md).
 
-1. [Trainer](components#trainer) - Algorithm used in LLM training or unlearning
-2. [Dataset](components#dataset) - Dataset class for preprocessing raw data
-3. [Evaluation Metric](components#evaluation-metric) - Metric class implementing model evaluation
-4. [Benchmark](components#benchmark) - Suite combining multiple evaluation metrics
-5. [Model](components#model) - LLM used in unlearning
-6. [Collator](components#collator) - Handles data collation logic
-7. [Experiment](components#experiment) - Combines components into a final experiment config
+1. [Trainer](components#trainer) - Algorithm used in LLM training or unlearning  
+2. [Dataset](components#dataset) - Dataset class for preprocessing raw data  
+3. [Evaluation Metric](components#evaluation-metric) - Metric class implementing model evaluation  
+4. [Benchmark](components#benchmark) - Suite combining multiple evaluation metrics  
+5. [Model](components#model) - LLM used in unlearning  
+6. [Collator](components#collator) - Handles data collation logic  
+7. [Experiment](components#experiment) - Combines components into a final experiment config  
+
+> [!IMPORTANT] 🚀  
+> **We especially encourage** contributions of methods and benchmarks that you've created, since you best understand them and know how to use them. We are ready to expedite their integration into OpenUnlearning.  
+> When facing difficulties implementing any component, please contact the maintainers to join our discord where we can go in detail with the implementations.
 
 ## Contributing a New Unlearning Method
 
-
-We greatly appreciate your implementation contributions to unlearning methods, as you understand the intricacies best than anyone. If you encounter any challenges, feel free to discuss your approach in our [discord](https://discord.gg/v4aYBZsW) group, we are always here to help!
-
-Steps to contribute for new unlearning method
-
 ### 1. Implement an Unlearning Trainer
 
+Your method might require a custom loss function, or other trainer related modifications which go here.  
 Refer to our [Trainer implementation guide](components.md#trainer) to ensure your method integrates well with our framework.
 
-### 2. Run and Tune Your Method on Relevant Benchmarks
+### 2. Detail Commands to Be Run
+
+Some methods might involve multiple commands or steps while unlearning: ensure you write a clear `.sh` file that documents this.
+
+### 3. Run and Tune Your Method on Relevant Benchmarks
 
 - Once implemented, evaluate your method on applicable benchmarks using the best possible parameters.
 - Create a folder [`community/methods/<YOUR_METHOD>`](../community/methods) and include a README file in it, explaining the method details, hyper-parameters, strategy/logic for selecting the best model for unlearning etc.
 - Include a bash script `run.sh` with the exact bash command needed to replicate your results.
 
+### 4. Update Leaderboard and Upload Model
 
-### 3. Update leaderboard and share model
-
-Don't forget to add your results to the [leaderboard](results.md) and, if possible, upload your unlearned model to Hugging Face for broader accessibility and reproducibility.
+Don't forget to add your results to the [leaderboard](results.md) and upload your unlearned model to HuggingFace for broader accessibility and reproducibility.
 
 ```bash
 pip install huggingface_hub
@@ -103,6 +100,7 @@ git commit -m "Initial commit"
 git push origin main
 ```
 
+---
 
 ## Contributing to Unlearning Benchmark Evaluations
 
@@ -110,37 +108,33 @@ Evaluating LLM unlearning is essential for assessing the effectiveness of differ
 
 Your contributions toward defining or improving evaluation methods can significantly advance unlearning research. By proposing reliable benchmarks, you help ensure that unlearning methods are both effective and aligned with real-world requirements.
 
-- To add a new unlearning metric, refer to our [Metric Implementation Guide]((components.md#evaluation-metric).).
+- To add a new unlearning evaluation metric, refer to our [Metric Implementation Guide]((components.md#evaluation-metric).).
 - To integrate new datasets and models, follow our [Components Guide](components.md).
 
-### Steps to contribute for new unlearning benchmark
-1. **Prepare Datasets & Models** – Create your dataset and train models to generate fine-tuned or retained models.
-2. **Define a New Benchmark** (if needed) – Follow the [Benchmark Guide]((components.md#benchmark)) to implement a new evaluation benchmark.
-3. **Run and Tune Baseline Methods** – Evaluate existing unlearning methods on your benchmark and optimize them.
+### Steps to add a new Unlearning Benchmark
+
+1. **Prepare Datasets & Models** – Create your dataset and train models to generate fine-tuned or retained models.  
+2. **Define a New Benchmark** (if needed) – Follow the [Benchmark Guide]((components.md#benchmark)) to implement a new evaluation benchmark.  
+3. **Run and Tune Baseline Methods** – Evaluate existing unlearning methods on your benchmark and optimize them.  
 4. **Document & Share Findings** – Provide detailed steps for reproduction in [`community/benchmarks/<YOUR_BENCHMARK>`](../community/benchmarks).
 
-## Do you want to add documentation?
+---
 
-We're always looking for improvements to the documentation that make it more clear and accurate. Please let us know how the documentation can be improved such as typos and any content that is missing, unclear or inaccurate. We'll be happy to make the changes or help you make a contribution if you're interested!
+## Do You Want to Add Documentation?
+
+We're always looking for improvements to the documentation that make it more clear and accurate. Please let us know how the documentation can be improved such as typos and any content that is missing, unclear or inaccurate. We'll be happy to make the changes or help you make a contribution!
+
+---
 
 ## Create a Pull Request
 
-<!-- Let's first fork the transformers repo on github. Once it's done you can clone your fork and install transformers in our environment: -->
+Before writing any code, we strongly advise you to search through the existing PRs or issues to make sure nobody is already working on the same thing. If you are unsure, it is always a good idea to open an issue to get some feedback.
 
-Before writing any code, we strongly advise you to search through the existing PRs or
-issues to make sure nobody is already working on the same thing. If you are
-unsure, it is always a good idea to open an issue to get some feedback.
-
-You will need basic `git` proficiency to contribute to
-open-unlearning. While `git` is not the easiest tool to use, it has the greatest
-manual. Type `git --help` in a shell and enjoy! If you prefer books, [Pro
-Git](https://git-scm.com/book/en/v2) is a very good reference.
+You will need basic `git` proficiency to contribute to OpenUnlearning. While `git` is not the easiest tool to use, it has the greatest manual. Type `git --help` in a shell and enjoy! If you prefer books, [Pro Git](https://git-scm.com/book/en/v2) is a very good reference.
 
 Follow the steps below to start contributing:
 
-1. Fork the [repository](https://github.com/huggingface/transformers) by
-   clicking on the **[Fork](https://github.com/huggingface/transformers/fork)** button on the repository's page. This creates a copy of the code
-   under your GitHub user account.
+1. Fork the [repository](https://github.com/huggingface/transformers) by clicking on the **[Fork](https://github.com/huggingface/transformers/fork)** button on the repository's page. This creates a copy of the code under your GitHub user account.
 
 2. Clone your fork to your local disk, and add the base repository as a remote:
 
@@ -169,8 +163,7 @@ Follow the steps below to start contributing:
 
    As you work on your code, you should make sure the code is linted and formatted correctly.
 
-   Open Unlearning relies on `ruff` to lint & format its source code
-   consistently. After you make changes, to check the quality of code, run
+   Open Unlearning relies on `ruff` to lint & format its source code consistently. After you make changes, to check the quality of code, run
 
    ```bash
    make quality
@@ -182,19 +175,16 @@ Follow the steps below to start contributing:
    make style
    ```
 
-   Once you're happy with your changes, add the changed files with `git add` and
-   record your changes locally with `git commit`:
+   Once you're happy with your changes, add the changed files with `git add` and record your changes locally with `git commit`:
 
    ```bash
    git add modified_file.py
    git commit
    ```
 
-   Please remember to write [good commit
-   messages](https://chris.beams.io/posts/git-commit/) to clearly communicate the changes you made!
+   Please remember to write [good commit messages](https://chris.beams.io/posts/git-commit/) to clearly communicate the changes you made!
 
-   To keep your copy of the code up to date with the original
-   repository, rebase your branch on `upstream/branch` *before* you open a pull request or if requested by a maintainer:
+   To keep your copy of the code up to date with the original repository, rebase your branch on `upstream/branch` *before* you open a pull request or if requested by a maintainer:
 
    ```bash
    git fetch upstream
@@ -211,18 +201,12 @@ Follow the steps below to start contributing:
 
 6. Now you can go to your fork of the repository on GitHub and click on **Pull Request** to open a pull request. Make sure you tick off all the boxes on our [checklist](#pull-request-checklist) below. When you're ready, you can send your changes to the project maintainers for review.
 
-7. It's ok if maintainers request changes, it happens to our core contributors
-   too! So everyone can see the changes in the pull request, work in your local
-   branch and push the changes to your fork. They will automatically appear in
-   the pull request.
+7. Please bear with us maintainers with the changes we require! We want to ensure we keep the repository clean and easily extensible. As yuo make your updates: you may want to work in your local branch and push the changes to your fork, since everyone can see the changes in the pull request. Changes pushed to the fork will automatically appear in the pull request.
 
-### Pull request checklist
+### Pull Request Checklist
 
-☐ The pull request title should summarize your contribution.<br>
-☐ If your pull request addresses an issue, please mention the issue number in the pull
-request description to make sure they are linked (and people viewing the issue know you
-are working on it).<br>
-☐ To indicate a work in progress please prefix the title with `[WIP]`. These are
-useful to avoid duplicated work, and to differentiate it from PRs ready to be merged.<br>
-☐ Make sure existing tests pass.<br>
-☐ Make methods having informative docstrings.<br>
+☐ The pull request title should summarize your contribution.  
+☐ If your pull request addresses an issue, please mention the issue number in the pull request description to make sure they are linked (and people viewing the issue know you are working on it).  
+☐ To indicate a work in progress please prefix the title with `[WIP]`. These are useful to avoid duplicated work, and to differentiate it from PRs ready to be merged.  
+☐ Make sure existing tests and checks, if any, pass.  
+☐ Make methods having informative docstrings.  

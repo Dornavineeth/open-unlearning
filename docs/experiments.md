@@ -59,7 +59,7 @@ paths.output_dir=saves/unlearn/NPO/evals
 ```
 
 
-> [!Note]: The unlearning experiments support evaluation during the unlearning training. But this is supported only on a single GPU, evaluation can be performed during unlearning itself. When multiple GPUs are used to train, checkpoints must be stored and evaluated after training.
+> [!Note]: The unlearning experiments support evaluation during the unlearning finetuning. But this is supported only on a single GPU When multiple GPUs are used to train, checkpoints must be stored and evaluated after training.
 
 ---
 

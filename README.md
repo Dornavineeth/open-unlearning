@@ -27,6 +27,9 @@ We invite the LLM unlearning community to collaborate by adding new benchmarks, 
 
 ### 📢 Updates
 
+#### [Mar 27, 2025]  
+- **Easier contributions, leaderboard and reproducibility**: We've updated the documentation to make contributing new unlearning methods and benchmarks much easier. Users can document additions better and also update a leaderboard with their results. See [this section](#-how-to-contribute) for details.
+
 #### [Feb 27, 2025]  
 ⚠️ **Repository Update**: This repo replaces the original TOFU codebase at [`github.com/locuslab/tofu`](https://github.com/locuslab/tofu), which is no longer maintained.
 
