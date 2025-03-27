@@ -25,7 +25,7 @@ We provide efficient and streamlined implementations of the TOFU, MUSE unlearnin
 
 We invite the LLM unlearning community to collaborate by adding new benchmarks, unlearning methods, datasets and evaluation metrics here to expand OpenUnlearning's features, gain feedback from wider usage and drive progress in the field.
 
-<div style="max-height: 200px; overflow-y: auto; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+---
 
 ### 📢 Updates
 
@@ -37,7 +37,18 @@ We invite the LLM unlearning community to collaborate by adding new benchmarks, 
 #### [Feb 27, 2025]  
 ⚠️ **Repository Update**: This repo replaces the original TOFU codebase at [`github.com/locuslab/tofu`](https://github.com/locuslab/tofu), which is no longer maintained.
 
-</div>
+---
+
+<!--
+<details>
+<summary>📢 <b>Older Updates</b></summary>
+
+#### [Date]  
+- Update 1
+- Update 2
+
+</details>
+-->
 
 ## 🗃️ Available Components
 
