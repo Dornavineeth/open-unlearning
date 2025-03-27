@@ -2,7 +2,7 @@
 
 - Paper title, authors, links.
 
-Provide a concise summary of your benchmark details and its contributions. Please avoid using large sized images.
+Provide a concise summary of your benchmark details and its contributions. Please avoid using images to keep the repository size manageable.
 
 # Datasets
 

@@ -4,7 +4,7 @@ Everyone is welcome to contribute, and every contribution is valued. Aside from 
 
 You can also help by spreading the word! If you find this project useful, please share it with others, cite it, link it on your repositories and posts, or simply ⭐️ the repo to show your support.
 
-> 🤝 This guide is heavily borrowed by the awesome [transformers](https://github.com/huggingface/transformers/blob/main/CONTRIBUTING.md) guide to contributing.
+> 🤝 This guide is heavily borrowed from awesome [transformers](https://github.com/huggingface/transformers/blob/main/CONTRIBUTING.md) guide to contributing.
 
 ## Ways to Contribute
 
@@ -61,7 +61,7 @@ Adding a new component listed below requires defining a new class, registering i
 6. [Collator](components#collator) - Handles data collation logic  
 7. [Experiment](components#experiment) - Combines components into a final experiment config  
 
-> [!IMPORTANT] 🚀  
+> **IMPORTANT** 🚀  
 > **We especially encourage** contributions of methods and benchmarks that you've created, since you best understand them and know how to use them. We are ready to expedite their integration into OpenUnlearning.  
 > When facing difficulties implementing any component, please contact the maintainers to join our discord where we can go in detail with the implementations.
 
@@ -130,8 +130,6 @@ We're always looking for improvements to the documentation that make it more cle
 
 Before writing any code, we strongly advise you to search through the existing PRs or issues to make sure nobody is already working on the same thing. If you are unsure, it is always a good idea to open an issue to get some feedback.
 
-You will need basic `git` proficiency to contribute to OpenUnlearning. While `git` is not the easiest tool to use, it has the greatest manual. Type `git --help` in a shell and enjoy! If you prefer books, [Pro Git](https://git-scm.com/book/en/v2) is a very good reference.
-
 Follow the steps below to start contributing:
 
 1. Fork the [repository](https://github.com/huggingface/transformers) by clicking on the **[Fork](https://github.com/huggingface/transformers/fork)** button on the repository's page. This creates a copy of the code under your GitHub user account.
@@ -150,20 +148,17 @@ Follow the steps below to start contributing:
    git checkout -b a-descriptive-name-for-my-changes
    ```
 
-4. Set up a development environment by running the following command in a virtual environment:
+4. Set up the environment in dev mode after following steps in [Quick Start](../README.md#-quickstart). This installs other packages such as `ruff`, `precommit` etc.
 
    ```bash
-   conda create -n unlearning python=3.11
-   conda activate unlearning
    pip install .[dev]
-   pip install --no-build-isolation flash-attn==2.6.3
    ```
 
 5. Develop the features in your fork/branch.
 
    As you work on your code, you should make sure the code is linted and formatted correctly.
 
-   Open Unlearning relies on `ruff` to lint & format its source code consistently. After you make changes, to check the quality of code, run
+   OpenUnlearning relies on `ruff` to lint & format its source code consistently. After you make changes, to check the quality of code, run
 
    ```bash
    make quality
@@ -201,7 +196,7 @@ Follow the steps below to start contributing:
 
 6. Now you can go to your fork of the repository on GitHub and click on **Pull Request** to open a pull request. Make sure you tick off all the boxes on our [checklist](#pull-request-checklist) below. When you're ready, you can send your changes to the project maintainers for review.
 
-7. Please bear with us maintainers with the changes we require! We want to ensure we keep the repository clean and easily extensible. As yuo make your updates: you may want to work in your local branch and push the changes to your fork, since everyone can see the changes in the pull request. Changes pushed to the fork will automatically appear in the pull request.
+7. Please bear with us maintainers with the changes we require! We want to ensure we keep the repository clean and easily extensible. As you make your updates: you may want to work in your local branch and push the changes to your fork, since everyone can see the changes in the pull request. Changes pushed to the fork will automatically appear in the pull request.
 
 ### Pull Request Checklist
 
