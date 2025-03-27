@@ -150,6 +150,7 @@ class UnlearningMetric:
         """
         return f"{type(self).__name__} {self.name}"
 
+
 # decorator that wraps simple user-defined metric python functions into callable UnlearningMetric objects
 class unlearning_metric:
     def __init__(self, name: str):

@@ -11,6 +11,7 @@ from transformers import StoppingCriteria, StoppingCriteriaList, PreTrainedToken
 from data.utils import IGNORE_INDEX
 import warnings
 
+
 def dict_transpose(evals):
     """Transpose a nested dictionary structure to group statistics by item indices."""
     # evals looks like {iidx0: {idx453: {prob: 0.1, loss: 1}},
@@ -104,16 +105,16 @@ def evaluate_probability(model, batch):
 
 def tokenwise_logprobs(model, batch, grad=False):
     """
-    Compute token-wise next token prediction logprobs for all labeled tokens for each sample in a batch. 
+    Compute token-wise next token prediction logprobs for all labeled tokens for each sample in a batch.
     `grad` decides whether gradients are turned on
     returns List[Tensor] with Tensors of size seq_len where seq_len is length of labeled tokens
     """
     batch = {k: v.to(model.device) for k, v in batch.items()}
-    
+
     model.train(mode=grad)
     with torch.set_grad_enabled(grad):
         output = model(**batch)
-    
+
     logits = output.logits
     bsz, seq_len, V = logits.shape
     log_probs = torch.nn.functional.log_softmax(logits, dim=-1)[:, :-1, :]
@@ -121,7 +122,7 @@ def tokenwise_logprobs(model, batch, grad=False):
     next_tokens = batch["input_ids"][:, 1:].unsqueeze(-1)  # bsz x seq_len-1 x 1
     target_log_probs = torch.gather(log_probs, dim=2, index=next_tokens).squeeze(-1)
     log_probs_batch = []
-    
+
     for i in range(bsz):
         labels = batch["labels"][i][:-1]
         # only focus on tokens which have loss on them (i.e. used in labels)
@@ -137,13 +138,13 @@ def tokenwise_logprobs(model, batch, grad=False):
                 UserWarning,
             )
         log_probs_batch.append(target_log_probs[i, start_idx - 1 : end_idx])
-    
+
     return log_probs_batch
 
 
 def tokenwise_vocab_logprobs(model, tokens, grad=False):
     """Get vocabulary-wise log probabilities for each token in the sequence.
-    
+
     Returns:
         List[Tensor]: List of tensors of shape (N, V) containing log probabilities
                       for each sequence, where N is sequence length and V is vocab size.
@@ -152,11 +153,13 @@ def tokenwise_vocab_logprobs(model, tokens, grad=False):
     model.train(mode=grad)
     with torch.set_grad_enabled(grad):
         output = model(**batch)
-    
+
     logits = output.logits
     bsz, seq_len, V = logits.shape
-    log_probs = torch.nn.functional.log_softmax(logits, dim=-1)[:, :-1, :]  # Don't predict for last token
-    
+    log_probs = torch.nn.functional.log_softmax(logits, dim=-1)[
+        :, :-1, :
+    ]  # Don't predict for last token
+
     # Process each sequence in batch separately
     log_probs_batch = []
     for i in range(bsz):
@@ -174,7 +177,7 @@ def tokenwise_vocab_logprobs(model, tokens, grad=False):
             )
         # Return full distribution for each position: shape (N, V)
         log_probs_batch.append(log_probs[i, start_idx - 1 : end_idx])
-    
+
     return log_probs_batch
 
 
@@ -288,7 +291,7 @@ def eval_text_similarity(model, tokenizer, batch, generation_args):
     gen_texts = tokenizer.batch_decode(
         output[:, input_ids.shape[-1] :],
         skip_special_tokens=True,
-        clean_up_tokenization_spaces=True
+        clean_up_tokenization_spaces=True,
     )
 
     # cut off at stopwords
@@ -322,5 +325,7 @@ def extract_target_texts_from_processed_data(tokenizer, batch):
     """Extract and detokenize text from activated positions in the batch."""
     labels = batch["labels"]
     labels = [elem[elem != -100] for elem in labels]
-    texts = [tokenizer.decode(elem.tolist(), skip_special_tokens=True) for elem in labels]
+    texts = [
+        tokenizer.decode(elem.tolist(), skip_special_tokens=True) for elem in labels
+    ]
     return texts

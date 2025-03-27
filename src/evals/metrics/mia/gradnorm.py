@@ -1,20 +1,21 @@
 """
-    Gradient-norm attack. Proposed for MIA in multiple settings, and particularly 
-    experimented for pre-training data and LLMs in https://arxiv.org/abs/2402.17012
+Gradient-norm attack. Proposed for MIA in multiple settings, and particularly
+experimented for pre-training data and LLMs in https://arxiv.org/abs/2402.17012
 """
+
 import torch
 from evals.metrics.mia.all_attacks import Attack
 from evals.metrics.utils import tokenwise_logprobs
 
+
 # DO NOT use gradnorm in a way so that it runs when your accumulated gradients during training aren't used yet
 # gradnorm zeros out the gradients of the model during its computation
 class GradNormAttack(Attack):
-    
     def setup(self, p, **kwargs):
-        if p not in [1, 2, float('inf')]:
+        if p not in [1, 2, float("inf")]:
             raise ValueError(f"Invalid p-norm value: {p}")
         self.p = p
-       
+
     def compute_batch_values(self, batch):
         """Compute gradients of examples w.r.t model parameters. More grad norm => more loss."""
         batch_log_probs = tokenwise_logprobs(self.model, batch, grad=True)

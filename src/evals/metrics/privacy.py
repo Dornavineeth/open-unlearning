@@ -5,7 +5,7 @@ from evals.metrics.base import unlearning_metric, logger
 
 @unlearning_metric(name="ks_test")
 def ks_test(model, **kwargs):
-    """Compare two forget and retain model distributions with a 2-sample KS-test and report the p-value. 
+    """Compare two forget and retain model distributions with a 2-sample KS-test and report the p-value.
     Used in the TOFU benchmark as forget_quality when computed over the truth_ratio statistic."""
     forget_tr_stats = np.array(
         [
@@ -36,9 +36,9 @@ def ks_test(model, **kwargs):
 def privleak(model, **kwargs):
     """Compare two forget and retain model scores using a relative comparison of a single statistic.
     To be used for MIA AUC scores in ensuring consistency and reproducibility of the MUSE benchmark.
-    This function is similar to the rel_diff function below, but due to the MUSE benchmark reporting AUC 
+    This function is similar to the rel_diff function below, but due to the MUSE benchmark reporting AUC
     scores as (1-x) when the more conventional way is x, we do adjustments here to our MIA AUC scores.
-    calculations in the reverse way, """
+    calculations in the reverse way,"""
     score = kwargs["pre_compute"]["forget"]["agg_value"]
     try:
         ref = kwargs["reference_logs"]["retain_model_logs"]["retain"]["agg_value"]
@@ -49,7 +49,7 @@ def privleak(model, **kwargs):
         ref = kwargs["ref_value"]
     score = 1 - score
     ref = 1 - ref
-    return {'agg_value': (score-ref)/(ref+1e-10)*100}
+    return {"agg_value": (score - ref) / (ref + 1e-10) * 100}
 
 
 @unlearning_metric(name="rel_diff")
@@ -63,4 +63,4 @@ def rel_diff(model, **kwargs):
             f"retain_model_logs evals not provided for privleak, using default retain auc of {kwargs['ref_value']}"
         )
         ref = kwargs["ref_value"]
-    return {'agg_value': (score-ref)/(ref+1e-10)*100}
+    return {"agg_value": (score - ref) / (ref + 1e-10) * 100}

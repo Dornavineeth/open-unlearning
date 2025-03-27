@@ -8,18 +8,14 @@ from evals.metrics.memorization import (
     truth_ratio,
     hm_aggregate,
 )
-from evals.metrics.privacy import (
-    ks_test,
-    privleak,
-    rel_diff
-)
+from evals.metrics.privacy import ks_test, privleak, rel_diff
 from evals.metrics.mia import (
     mia_loss,
     mia_min_k,
     mia_min_k_plus_plus,
     mia_gradnorm,
     mia_zlib,
-    mia_reference
+    mia_reference,
 )
 
 METRICS_REGISTRY: Dict[str, UnlearningMetric] = {}
