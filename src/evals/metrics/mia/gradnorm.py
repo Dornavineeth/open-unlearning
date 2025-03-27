@@ -6,6 +6,8 @@ import torch
 from evals.metrics.mia.all_attacks import Attack
 from evals.metrics.utils import tokenwise_logprobs
 
+# DO NOT use gradnorm in a way so that it runs when your accumulated gradients during training aren't used yet
+# gradnorm zeros out the gradients of the model during its computation
 class GradNormAttack(Attack):
     
     def setup(self, p, **kwargs):

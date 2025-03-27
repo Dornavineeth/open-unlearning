@@ -24,7 +24,7 @@ For all the experiments below, we used the following setup
 
 
 __Note:__ 
-1. The results in the next section: display only some important subsets of metrics for each benchmark, for more evals see `muse*/*_SUMMARY.json`, `tofu*/evals*/*_SUMMARY.json` files on the [HuggingFace space](https://huggingface.co/datasets/open-unlearning/eval).
+1. The results in the next section: display only some important subsets of metrics for each benchmark, for examples of more evaluation metrics that are available: see `muse*/*_SUMMARY.json`, `tofu*/evals*/*_SUMMARY.json` files on the [HuggingFace space](https://huggingface.co/datasets/open-unlearning/eval).
 2. Results may vary even with the same effective hyperparameters when trained with modifications to the distributed training setup, including when training on a single GPU. For example: methods such as SimNPO & RMU can be significantly improved with careful tuning. **Please use these numbers only for reproducibility purposes**.
 3. NPO in MUSE: for NPO, the MUSE implementation is inconsistent with the [original paper](https://github.com/licong-lin/negative-preference-optimization) as discussed [here]( https://github.com/jaechan-repo/muse_bench/issues/2). This inconsistency is carried over into implementations like [SimNPO](https://github.com/OPTML-Group/Unlearn-Simple/issues/5). Here, we use the original NPO implementation with the same loss function expression across datasets.
 

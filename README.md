@@ -25,15 +25,19 @@ We provide efficient and streamlined implementations of the TOFU, MUSE unlearnin
 
 We invite the LLM unlearning community to collaborate by adding new benchmarks, unlearning methods, datasets and evaluation metrics here to expand OpenUnlearning's features, gain feedback from wider usage and drive progress in the field.
 
+<div style="max-height: 200px; overflow-y: auto; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+
 ### 📢 Updates
 
 #### [Mar 27, 2025]  
-- **MIA**: Added 6 membership inference attacks-—LOSS, ZLib, Reference, GradNorm, MinK and MinK++ as options in the evaluation metrics.
+- **MIA**: Added 6 membership inference attacks—LOSS, ZLib, Reference, GradNorm, MinK, and MinK++ as options in the evaluation metrics.
 - **TOFU Benchmark**: Now includes a holdout set and supports MIA attack-based evaluation. You can now compute MUSE's privleak on TOFU.
 - **Unlearning Methods**: Added support for [RMU](https://arxiv.org/abs/2403.03218) (representation-engineering based unlearning).
 
 #### [Feb 27, 2025]  
 ⚠️ **Repository Update**: This repo replaces the original TOFU codebase at [`github.com/locuslab/tofu`](https://github.com/locuslab/tofu), which is no longer maintained.
+
+</div>
 
 ## 🗃️ Available Components
 

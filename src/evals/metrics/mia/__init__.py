@@ -15,8 +15,8 @@ from evals.metrics.mia.utils import mia_auc
 import logging
 logger = logging.getLogger("metrics")
 
-## NOTE: all MIA attack statistics are signed with -1 as req in order to 
-# show the same trends as loss (higher the score on an example, less likely the membership)
+## NOTE: all MIA attack statistics are signed as required in order to show the 
+# same trends as loss (higher the score on an example, less likely the membership)
 
 @unlearning_metric(name="mia_loss")
 def mia_loss(model, **kwargs):

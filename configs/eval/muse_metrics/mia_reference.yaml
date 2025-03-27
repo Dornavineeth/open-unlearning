@@ -15,4 +15,4 @@ datasets:
 
 batch_size: 8
 handler: mia_reference
-reference_model_path: muse-bench/MUSE-Books_retrain
+reference_model_path: muse-bench/MUSE-${eval.muse.data_split}_retrain # modify appropriately
