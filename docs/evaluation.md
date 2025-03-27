@@ -82,6 +82,8 @@ def privleak(model, **kwargs):
 ```
 - `@unlearning_metric(name="rouge")` - Defines a `rouge` handler.
 
+> [!Note] `kwargs` contains many important attributes that are useful while computing metrics. It will contain all the metric-specific parameters defined in the metric's yaml file, and also contain the created objects corresponding to the other attributes mentioned in the metric config: such as the `"tokenizer"`, `"data"` (the preprocessed torch dataset), `"batch_size"`, `"collator"`, `"generation_args"`, `"pre_compute"` (prior metrics the current metric depends on), and `"reference_logs"` (evals from a reference model the current metric can use).
+
 #### 2. Register the metric handler
 Register the handler to link the class to the configs via the class name in [`METRIC_REGISTRY`](../src/evals/metrics/__init__.py).
 

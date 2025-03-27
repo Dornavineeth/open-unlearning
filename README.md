@@ -59,7 +59,7 @@ We provide several variants for each of the components in the unlearning pipelin
 |------------------------|----------------------|
 | **Benchmarks**        | [TOFU](https://arxiv.org/abs/2401.06121), [MUSE](https://muse-bench.github.io/) |
 | **Unlearning Methods** | GradAscent, GradDiff, NPO, SimNPO, DPO, RMU |
-| **Evaluation Metrics** | Verbatim Probability, Verbatim ROUGE, QA-ROUGE, 6x MIA Attacks, TruthRatio, Model Utility |
+| **Evaluation Metrics** | Verbatim Probability, Verbatim ROUGE, QA-ROUGE, 6 MIA Attacks, TruthRatio, Model Utility |
 | **Datasets**          | MUSE-News (BBC), MUSE-Books (Harry Potter), TOFU (different splits) |
 | **Model Families**    | TOFU: LLaMA-3.2, LLaMA-3.1, LLaMA-2; MUSE: LLaMA-2; Additional: Phi-3.5, Phi-1.5, Gemma |
 
@@ -95,7 +95,8 @@ pip install --no-build-isolation flash-attn==2.6.3
 
 # data setup
 python setup_data.py  # saves/eval now contains evaluation results of the uploaded models
-# Downloads log files with metric eval results (incl retain model logs) from the models used in the supported benchmarks.
+# Downloads log files with metric eval results (incl retain model logs) from the models 
+# used in the supported benchmarks.
 ```
 
 ---
