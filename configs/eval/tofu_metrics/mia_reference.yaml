@@ -5,3 +5,13 @@ defaults:
 batch_size: 32
 handler: mia_reference
 reference_model_path: open-unlearning/tofu_Llama-3.2-1B-Instruct_retain90  # modify appropriately
+
+datasets:
+  TOFU_QA_forget:
+    args:
+      hf_args:
+        name: ${eval.tofu.forget_split}
+  TOFU_QA_holdout:
+    args:
+      hf_args:
+        name: ${eval.tofu.holdoutt_split}

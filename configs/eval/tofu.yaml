@@ -22,4 +22,5 @@ metrics: {} # lists a mapping from each evaluation metric to its config
 # populated through the first (@package) line in each metric config
 overwrite: false
 forget_split: forget10
+holdout_split: holdout10
 retain_logs_path: null
