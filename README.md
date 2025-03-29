@@ -25,13 +25,31 @@ We provide efficient and streamlined implementations of the TOFU, MUSE unlearnin
 
 We invite the LLM unlearning community to collaborate by adding new benchmarks, unlearning methods, datasets and evaluation metrics here to expand OpenUnlearning's features, gain feedback from wider usage and drive progress in the field.
 
+---
+
 ### 📢 Updates
 
-#### [Mar 27, 2025]  
+#### [Mar 28, 2025]
+- **MIA**: Added 6 membership inference attacks—LOSS, ZLib, Reference, GradNorm, MinK, and MinK++ as options in the evaluation metrics.
+- **TOFU Benchmark**: Now includes a holdout set and supports MIA attack-based evaluation. You can now compute MUSE's privleak on TOFU.
+
+#### [Mar 27, 2025]
 - **Easier contributions, leaderboard and reproducibility**: We've updated the documentation to make contributing new unlearning methods and benchmarks much easier. Users can document additions better and also update a leaderboard with their results. See [this section](#-how-to-contribute) for details.
+
+
+<details>
+<summary><b>Older Updates</b></summary>
+
+#### [Mar 9, 2025]
+- **Unlearning Methods**: Added support for [RMU](https://arxiv.org/abs/2403.03218) (representation-engineering based unlearning).
 
 #### [Feb 27, 2025]  
 ⚠️ **Repository Update**: This repo replaces the original TOFU codebase at [`github.com/locuslab/tofu`](https://github.com/locuslab/tofu), which is no longer maintained.
+
+</details>
+
+
+---
 
 ## 🗃️ Available Components
 
@@ -41,7 +59,7 @@ We provide several variants for each of the components in the unlearning pipelin
 |------------------------|----------------------|
 | **Benchmarks**        | [TOFU](https://arxiv.org/abs/2401.06121), [MUSE](https://muse-bench.github.io/) |
 | **Unlearning Methods** | GradAscent, GradDiff, NPO, SimNPO, DPO, RMU |
-| **Evaluation Metrics** | Verbatim Probability, Verbatim ROUGE, QA-ROUGE, MIA Attacks, TruthRatio, Model Utility |
+| **Evaluation Metrics** | Verbatim Probability, Verbatim ROUGE, QA-ROUGE, 6 MIA Attacks, TruthRatio, Model Utility |
 | **Datasets**          | MUSE-News (BBC), MUSE-Books (Harry Potter), TOFU (different splits) |
 | **Model Families**    | TOFU: LLaMA-3.2, LLaMA-3.1, LLaMA-2; MUSE: LLaMA-2; Additional: Phi-3.5, Phi-1.5, Gemma |
 
@@ -77,7 +95,8 @@ pip install --no-build-isolation flash-attn==2.6.3
 
 # data setup
 python setup_data.py  # saves/eval now contains evaluation results of the uploaded models
-# Downloads log files with metric eval results (incl retain model logs) from the models used in the supported benchmarks.
+# Downloads log files with metric eval results (incl retain model logs) from the models 
+# used in the supported benchmarks.
 ```
 
 ---
@@ -112,15 +131,18 @@ python src/train.py --config-name=unlearn.yaml experiment=unlearn/tofu/default \
 An example command for launching a TOFU evaluation process on `forget10` split:
 
 ```bash
+model=Llama-3.2-1B-Instruct
 python src/eval.py --config-name=eval.yaml experiment=eval/tofu/default \
-  model=Llama-3.2-1B-Instruct \
-  model.model_args.pretrained_model_name_or_path=open-unlearning/tofu_Llama-3.2-1B-Instruct_full \
+  model=${model} \
+  model.model_args.pretrained_model_name_or_path=open-unlearning/tofu_${model}_full \
+  retain_logs_path=saves/eval/tofu_${model}_retain90/TOFU_EVAL.json \
   task_name=SAMPLE_EVAL
 ```
 
 - `experiment`- Path to the evaluation configuration [`configs/experiment/eval/tofu/default.yaml`](configs/experiment/eval/tofu/default.yaml).
 - `model`- Sets up the model and tokenizer configs for the `Llama-3.2-1B-Instruct` model.
 - `model.model_args.pretrained_model_name_or_path`- Overrides the default experiment config to evaluate a model from a HuggingFace ID (can use a local model checkpoint path as well).
+- `retain_logs_path`- Sets the path to the reference model eval logs that is needed to compute reference model based metrics like `forget_quality` in TOFU.
 
 For more details about creating and running evaluations, refer [`docs/evaluation.md`](docs/evaluation.md).
 
@@ -203,3 +225,9 @@ If you use OpenUnlearning in your research, please cite OpenUnlearning and the b
 
 ### 📄 License
 This project is licensed under the MIT License. See the [`LICENSE`](LICENSE) file for details.
+
+---
+
+### Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=locuslab/open-unlearning&type=Date)](https://www.star-history.com/#locuslab/open-unlearning&Date)

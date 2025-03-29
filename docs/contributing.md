@@ -61,7 +61,7 @@ Adding a new component listed below requires defining a new class, registering i
 6. [Collator](components#collator) - Handles data collation logic  
 7. [Experiment](components#experiment) - Combines components into a final experiment config  
 
-> **IMPORTANT** 🚀  
+> [!IMPORTANT]  
 > **We especially encourage** contributions of methods and benchmarks that you've created, since you best understand them and know how to use them. We are ready to expedite their integration into OpenUnlearning.  
 > When facing difficulties implementing any component, please contact the maintainers to join our discord where we can go in detail with the implementations.
 
