@@ -16,7 +16,7 @@ trainer:
 
 
 forget_split: forget10
-hodlout_split: holdout10
+holdout_split: holdout10
 retain_logs_path: null
 
 eval:
