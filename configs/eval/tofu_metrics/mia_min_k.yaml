@@ -14,4 +14,4 @@ datasets:
   TOFU_QA_holdout:
     args:
       hf_args:
-        name: ${eval.tofu.holdoutt_split}
+        name: ${eval.tofu.holdout_split}
