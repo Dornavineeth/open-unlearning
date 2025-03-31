@@ -10,7 +10,7 @@ TOFU_QA_forget:
     answer_key: "answer"
     max_length: 512
 TOFU_QA_holdout:
-  access_key: holdout10
+  access_key: holdout
   handler: QADataset
   args:
     hf_args:
