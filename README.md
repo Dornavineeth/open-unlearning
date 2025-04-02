@@ -175,7 +175,8 @@ For more in-depth information on specific aspects of the framework, refer to the
 | [`docs/experiments.md`](docs/experiments.md)     | Guide on running experiments in various configurations and settings, including distributed training, fine-tuning, and overriding arguments. |
 | [`docs/hydra.md`](docs/hydra.md)                 | Explanation of the Hydra features used in configuration management for experiments.                                  |
 | [`community/leaderboard.md`](community/leaderboard.md)             | Reference results from various unlearning methods run using this framework on TOFU and MUSE benchmarks.              |
-| [`docs/repro.md`](docs/repro.md) (deprecated)            | Results are provided solely for reproducibility purposes, without any parameter tuning.             |
+| [`docs/links.md`](docs/links.md)             | List of all links to the research papers or other sources the implemented features are sourced from.              |
+| [`docs/repro.md`](docs/repro.md)            | Results are provided solely for reproducibility purposes, without any parameter tuning.             |
 ---
 
 ## 🔗 Support & Contributors
@@ -219,7 +220,7 @@ If you use OpenUnlearning in your research, please cite OpenUnlearning and the b
 ### 🤝 Acknowledgements
 
 - This repo is inspired from [LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory). 
-- The [TOFU](https://github.com/locuslab/tofu) and [MUSE](https://github.com/jaechan-repo/muse_bench) benchmarks served as the foundation for our re-implementation. 
+- The [TOFU](https://github.com/locuslab/tofu) and [MUSE](https://github.com/swj0419/muse_bench) benchmarks served as the foundation for our re-implementation. 
 
 ---
 

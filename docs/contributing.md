@@ -17,6 +17,8 @@ There are several ways you can contribute to OpenUnlearning:
 * Implement new evaluations.
 * Contribute to the documentation.
 
+Once your feature is added you may also link the relevant paper in [`docs/links.md`](../docs/links.md)
+
 ## Fixing Issues
 
 If you notice an issue with the existing code and have a fix in mind, feel free to [start contributing](#create-a-pull-request) and open a Pull Request!
@@ -84,7 +86,7 @@ Some methods might involve multiple commands or steps while unlearning: ensure y
 
 ### 4. Update Leaderboard and Upload Model
 
-Don't forget to add your results to the [leaderboard](results.md) and upload your unlearned model to HuggingFace for broader accessibility and reproducibility.
+Don't forget to add your results to the [leaderboard](results.md) and upload your unlearned model to HuggingFace for broader accessibility and reproducibility. Also, if applicable, add a link to your paper in [`docs/links.md`](../docs/links.md)
 
 ```bash
 pip install huggingface_hub
@@ -116,7 +118,7 @@ Your contributions toward defining or improving evaluation methods can significa
 1. **Prepare Datasets & Models** – Create your dataset and train models to generate fine-tuned or retained models.  
 2. **Define a New Benchmark** (if needed) – Follow the [Benchmark Guide]((components.md#benchmark)) to implement a new evaluation benchmark.  
 3. **Run and Tune Baseline Methods** – Evaluate existing unlearning methods on your benchmark and optimize them.  
-4. **Document & Share Findings** – Provide detailed steps for reproduction in [`community/benchmarks/<YOUR_BENCHMARK>`](../community/benchmarks).
+4. **Document & Share Findings** – Provide detailed steps for reproduction in [`community/benchmarks/<YOUR_BENCHMARK>`](../community/benchmarks). Also, if applicable, add a link to your paper in [`docs/links.md`](../docs/links.md)
 
 ---
 
