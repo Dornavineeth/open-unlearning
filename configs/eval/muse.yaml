@@ -3,16 +3,18 @@
 
 defaults:
   - muse_metrics:
+    - forget_knowmem_ROUGE
+    - retain_knowmem_ROUGE
+    - forget_verbmem_ROUGE
+    - privleak
     # - mia_min_k_plus_plus
     # - mia_min_k
     # - mia_loss
     # - mia_reference
     # - mia_zlib
     # - mia_gradnorm
-    - forget_knowmem_ROUGE
-    - retain_knowmem_ROUGE
-    - forget_verbmem_ROUGE
-    - privleak
+    # - extraction_strength
+    # - exact_memorization
 
 handler: MUSEEvaluator
 output_dir: ${paths.output_dir} # set to default eval directory
