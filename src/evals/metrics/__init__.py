@@ -8,7 +8,7 @@ from evals.metrics.memorization import (
     truth_ratio,
     hm_aggregate,
     extraction_strength,
-    exact_memorization
+    exact_memorization,
 )
 from evals.metrics.privacy import ks_test, privleak, rel_diff
 from evals.metrics.mia import (
