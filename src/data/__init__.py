@@ -1,5 +1,6 @@
 from typing import Dict, Any, Union
 from omegaconf import DictConfig
+from torch.utils.data import Subset
 
 from data.qa import (
     QADataset,
@@ -34,7 +35,10 @@ def _load_single_dataset(dataset_name, dataset_cfg: DictConfig, **kwargs):
             f"{dataset_handler_name} not implemented or not registered"
         )
     dataset_args = dataset_cfg.args
-    return dataset_handler(**dataset_args, **kwargs)
+    torch_dataset = dataset_handler(**dataset_args, **kwargs)
+    if "limit" in dataset_cfg and isinstance(dataset_cfg.limit, int):
+        torch_dataset = Subset(torch_dataset, range(dataset_cfg.limit))
+    return torch_dataset
 
 
 def get_datasets(dataset_cfgs: Union[Dict, DictConfig], **kwargs):
