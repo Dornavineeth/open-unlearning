@@ -19,9 +19,9 @@ Links to research papers and resources corresponding to implemented features in 
 | Method          | Resource |
 |-----------------|----------|
 | GradAscent, GradDiff | Naive baselines found in many papers including MUSE, TOFU etc. |
-| NPO-based             | NPO ([📄](https://arxiv.org/abs/2404.05868), [🐙](https://github.com/licong-lin/negative-preference-optimization)), SimNPO ([📄](https://arxiv.org/abs/2410.07163), [🐙](https://github.com/OPTML-Group/Unlearn-Simple)) |
-| DPO-based             | IdkPO (TOFU), AltPO ([📄](https://aclanthology.org/2025.coling-main.252/), [🐙](https://github.com/molereddy/Alternate-Preference-Optimization)) |
-| RMU             | WMDP ([🐙](https://github.com/centerforaisafety/wmdp/tree/main/rmu), [🌐](https://www.wmdp.ai/)), G-effect [🐙](https://github.com/tmlr-group/G-effect/blob/main/dataloader.py) |
+| NPO-based             | first NPO ([📄](https://arxiv.org/abs/2404.05868), [🐙](https://github.com/licong-lin/negative-preference-optimization)), later SimNPO ([📄](https://arxiv.org/abs/2410.07163), [🐙](https://github.com/OPTML-Group/Unlearn-Simple)) |
+| DPO-based             | first as IdkPO (TOFU), adapted in in RWKU ([📄](https://rwku-bench.github.io/static/RWKU.pdf)) AltPO ([📄](https://aclanthology.org/2025.coling-main.252/), [🐙](https://github.com/molereddy/Alternate-Preference-Optimization)) |
+| RMU             | originally from WMDP ([🐙](https://github.com/centerforaisafety/wmdp/tree/main/rmu), [🌐](https://www.wmdp.ai/)), later used in G-effect ([🐙](https://github.com/tmlr-group/G-effect/blob/main/dataloader.py)) |
 | UnDIAL          | [arxiv.org/abs/2402.10052](https://arxiv.org/abs/2402.10052) |
 | CE-U            | [arxiv.org/abs/2503.01224](https://arxiv.org/abs/2503.01224) |
 | GRU             | [arxiv.org/abs/2503.09117](https://arxiv.org/abs/2503.09117) |
@@ -45,8 +45,8 @@ Links to research papers and resources corresponding to implemented features in 
 | Membership Inference Attacks (LOSS, ZLib, Reference, GradNorm, MinK, MinK++) | MIMIR ([🐙](https://github.com/iamgroot42/mimir)), MUSE ([arxiv.org/abs/2407.06460](https://arxiv.org/abs/2407.06460)) |
 | PrivLeak | MUSE ([arxiv.org/abs/2407.06460](https://arxiv.org/abs/2407.06460)) |
 | Forget Quality, Truth Ratio, Model Utility | TOFU ([arxiv.org/abs/2401.06121](https://arxiv.org/abs/2401.06121)) |
-| Extraction Strength (ES) |  [Carlini et al., 2021](https://www.usenix.org/conference/usenixsecurity21/presentation/carlini-extracting), [Wang et al., 2025](https://openreview.net/pdf?id=wUtCieKuQU) |
-| Exact Memorization (EM) |  [Tirumala et al., 2022](https://proceedings.neurips.cc/paper_files/paper/2022/hash/fa0509f4dab6807e2cb465715bf2d249-Abstract-Conference.html), [Wang et al., 2025](https://openreview.net/pdf?id=wUtCieKuQU) |
+| Extraction Strength (ES) |  [Carlini et al., 2021](https://www.usenix.org/conference/usenixsecurity21/presentation/carlini-extracting), used for unlearning in [Wang et al., 2025](https://openreview.net/pdf?id=wUtCieKuQU) |
+| Exact Memorization (EM) |  [Tirumala et al., 2022](https://proceedings.neurips.cc/paper_files/paper/2022/hash/fa0509f4dab6807e2cb465715bf2d249-Abstract-Conference.html), used for unlearning in [Wang et al., 2025](https://openreview.net/pdf?id=wUtCieKuQU) |
 
 ---
 
