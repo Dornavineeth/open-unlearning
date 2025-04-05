@@ -4,17 +4,19 @@
 defaults: # include all defined metrics files
   - tofu_metrics: # When you import a metric here, its configuration automatically populates the 
   # metric key below, enabled by the @package directive at the top of each configuration file.
-    # - mia_min_k_plus_plus
-    # - mia_min_k
-    # - mia_loss
-    # - mia_reference
-    # - mia_zlib
-    # - mia_gradnorm
-    - privleak
     - forget_quality
     - forget_Q_A_Prob
     - forget_Q_A_ROUGE
     - model_utility # populated in the metrics key as metrics.model_utility
+    - privleak
+    # - mia_min_k_plus_plus
+    # - mia_min_k
+    # - mia_loss
+    # - mia_zlib
+    # - mia_gradnorm
+    # - mia_reference # set reference model path appropriately
+    # - extraction_strength
+    # - exact_memorization
 
 handler: TOFUEvaluator
 output_dir: ${paths.output_dir} # set to default eval directory

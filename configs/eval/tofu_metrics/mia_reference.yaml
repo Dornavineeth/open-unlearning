@@ -4,7 +4,7 @@ defaults:
   - ../../collator@collators: DataCollatorForSupervisedDatasetwithIndex
 batch_size: 32
 handler: mia_reference
-reference_model_path: open-unlearning/tofu_Llama-3.2-1B-Instruct_retain90  # modify appropriately
+reference_model_path: ??? # modify appropriately for example open-unlearning/tofu_Llama-3.2-1B-Instruct_retain90
 
 datasets:
   TOFU_QA_forget:

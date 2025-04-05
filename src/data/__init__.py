@@ -52,12 +52,12 @@ def get_datasets(dataset_cfgs: Union[Dict, DictConfig], **kwargs):
 def get_data(data_cfg: DictConfig, mode="train", **kwargs):
     data = {}
     data_cfg = dict(data_cfg)
+    anchor = data_cfg.pop("anchor", "forget")
     for split, dataset_cfgs in data_cfg.items():
         data[split] = get_datasets(dataset_cfgs, **kwargs)
     if mode == "train":
         return data
     elif mode == "unlearn":
-        anchor = data_cfg.pop("anchor", "forget")
         unlearn_splits = {k: v for k, v in data.items() if k not in ("eval", "test")}
         unlearn_dataset = ForgetRetainDataset(**unlearn_splits, anchor=anchor)
         data["train"] = unlearn_dataset
