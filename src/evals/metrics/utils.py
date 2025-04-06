@@ -103,11 +103,13 @@ def evaluate_probability(model, batch):
     ]
 
 
-def tokenwise_logprobs(model, batch, grad=False):
+def tokenwise_logprobs(model, batch, grad=False, return_labels=False):
     """
     Compute token-wise next token prediction logprobs for all labeled tokens for each sample in a batch.
     `grad` decides whether gradients are turned on
-    returns List[Tensor] with Tensors of size seq_len where seq_len is length of labeled tokens
+    Returns
+    log_probs_batch (List[Tensor]): Tensors of size seq_len where seq_len is length of labeled tokens
+    labels_batch (List[Tensor]): List of tensors of length N. Returned only if return_labels is True
     """
     batch = {k: v.to(model.device) for k, v in batch.items()}
 
@@ -122,7 +124,7 @@ def tokenwise_logprobs(model, batch, grad=False):
     next_tokens = batch["input_ids"][:, 1:].unsqueeze(-1)  # bsz x seq_len-1 x 1
     target_log_probs = torch.gather(log_probs, dim=2, index=next_tokens).squeeze(-1)
     log_probs_batch = []
-
+    labels_batch = []
     for i in range(bsz):
         labels = batch["labels"][i][:-1]
         # only focus on tokens which have loss on them (i.e. used in labels)
@@ -138,18 +140,20 @@ def tokenwise_logprobs(model, batch, grad=False):
                 UserWarning,
             )
         log_probs_batch.append(target_log_probs[i, start_idx - 1 : end_idx])
+        labels_batch.append(labels[actual_indices])
 
-    return log_probs_batch
+    return (log_probs_batch, labels_batch) if return_labels else log_probs_batch
 
 
-def tokenwise_vocab_logprobs(model, tokens, grad=False):
+def tokenwise_vocab_logprobs(model, batch, grad=False, return_labels=False):
     """Get vocabulary-wise log probabilities for each token in the sequence.
 
     Returns:
-        List[Tensor]: List of tensors of shape (N, V) containing log probabilities
-                      for each sequence, where N is sequence length and V is vocab size.
+        log_probs_batch (List[Tensor]): List of tensors of shape (N, V) containing log probabilities
+        for each sequence, where N is the length of labeled tokens and V is vocab size.
+        labels_batch (List[Tensor]): List of tensors of length N. Returned only if return_labels is True
     """
-    batch = {k: v.to(model.device) for k, v in tokens.items()}
+    batch = {k: v.to(model.device) for k, v in batch.items()}
     model.train(mode=grad)
     with torch.set_grad_enabled(grad):
         output = model(**batch)
@@ -162,6 +166,7 @@ def tokenwise_vocab_logprobs(model, tokens, grad=False):
 
     # Process each sequence in batch separately
     log_probs_batch = []
+    labels_batch = []
     for i in range(bsz):
         labels = batch["labels"][i][:-1]
         # Only include positions that have labels
@@ -177,8 +182,9 @@ def tokenwise_vocab_logprobs(model, tokens, grad=False):
             )
         # Return full distribution for each position: shape (N, V)
         log_probs_batch.append(log_probs[i, start_idx - 1 : end_idx])
+        labels_batch.append(labels[actual_indices])
 
-    return log_probs_batch
+    return (log_probs_batch, labels_batch) if return_labels else log_probs_batch
 
 
 class MultiTokenEOSCriteria(StoppingCriteria):

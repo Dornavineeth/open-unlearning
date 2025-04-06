@@ -5,6 +5,7 @@ Enum class for attacks. Also contains the base attack class.
 from enum import Enum
 from torch.utils.data import DataLoader
 import numpy as np
+from tqdm import tqdm
 
 
 # Attack definitions
@@ -43,7 +44,7 @@ class Attack:
         all_scores = []
         all_indices = []
 
-        for batch in self.dataloader:
+        for batch in tqdm(self.dataloader, total=len(self.dataloader)):
             indices = batch.pop("index").cpu().numpy().tolist()
             batch_values = self.compute_batch_values(batch)
             scores = [self.compute_score(values) for values in batch_values]

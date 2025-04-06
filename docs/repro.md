@@ -63,7 +63,7 @@ For all the experiments below, we used the following setup
       <td>1.27e-03</td>
       <td>0.63</td>
       <td>0.53</td>
-      <td>1.33e-13</td>
+      <td>5.87e-14</td>
       <td>0.63</td>
       <td>0.51</td>
       <td>4.35e-25</td>
@@ -190,12 +190,12 @@ For all the experiments below, we used the following setup
     <tr>
       <th>Finetuned</th>
       <td>0.01</td>
-      <td>0.60</td>
-      <td>0.47</td>
-      <td>2.96e-13</td>
       <td>0.6</td>
       <td>0.47</td>
-      <td>8.08e-22</td>
+      <td>1.33e-13</td>
+      <td>0.6</td>
+      <td>0.47</td>
+      <td>1.66e-21</td>
       <td>0.6</td>
       <td>0.48</td>
     </tr>
@@ -206,7 +206,7 @@ For all the experiments below, we used the following setup
       <td>0.65</td>
       <td>1.0</td>
       <td>0.6</td>
-      <td>0.63</td>
+      <td>0.64</td>
       <td>1.0</td>
       <td>0.59</td>
       <td>0.63</td>
@@ -319,7 +319,7 @@ For all the experiments below, we used the following setup
       <td>0.64</td>
       <td>0.58</td>
       <td>-99.81</td>
-      <td>0.55</td>
+      <td>0.56</td>
       <td>0.47</td>
       <td>1.0</td>
       <td>-57.26</td>
@@ -328,7 +328,7 @@ For all the experiments below, we used the following setup
     <tr>
       <th>Retain</th>
       <td>0.33</td>
-      <td>0.21</td>
+      <td>0.20</td>
       <td>0</td>
       <td>0.56</td>
       <td>0.3</td>
