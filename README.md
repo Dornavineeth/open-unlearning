@@ -29,8 +29,8 @@ We invite the LLM unlearning community to collaborate by adding new benchmarks, 
 
 ### 📢 Updates
 
-#### [Mar 28, 2025]
-- **MIA**: Added 6 membership inference attacks—LOSS, ZLib, Reference, GradNorm, MinK, and MinK++ as options in the evaluation metrics.
+#### [Apr 6, 2025]
+- **Metrics**: Added 6 Membership Inference Attacks (MIA)—LOSS, ZLib, Reference, GradNorm, MinK, and MinK++—along with ES and EM as additional evaluation metrics.
 - **TOFU Benchmark**: Now includes a holdout set and supports MIA attack-based evaluation. You can now compute MUSE's privleak on TOFU.
 
 #### [Mar 27, 2025]
