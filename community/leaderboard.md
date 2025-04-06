@@ -19,16 +19,10 @@ To implement a new method, refer to our [contributing guide](../docs/contributin
   <thead>
     <tr>
       <th>Method</th>
-      <th style="text-align: center;" colspan="2" halign="left">forget01</th>
-      <th style="text-align: center;" colspan="2" halign="left">forget05</th>
       <th style="text-align: center;" colspan="2" halign="left">forget10</th>
     </tr>
     <tr>
       <th></th>
-      <th>forget_quality</th>
-      <th>model_utility</th>
-      <th>forget_quality</th>
-      <th>model_utility</th>
       <th>forget_quality</th>
       <th>model_utility</th>
     </tr>
@@ -36,19 +30,11 @@ To implement a new method, refer to our [contributing guide](../docs/contributin
   <tbody>
     <tr>
       <th>Finetuned</th>
-      <td>1.27e-03</td>
-      <td>0.63</td>
-      <td>5.87e-14</td>
-      <td>0.63</td>
       <td>4.35e-25</td>
       <td>0.63</td>
     </tr>
     <tr>
       <th>Retain</th>
-      <td>1.0</td>
-      <td>0.63</td>
-      <td>1.0</td>
-      <td>0.63</td>
       <td>1.0</td>
       <td>0.61</td>
     </tr>
@@ -71,16 +57,10 @@ To implement a new method, refer to our [contributing guide](../docs/contributin
   <thead>
     <tr>
       <th>Method</th>
-      <th style="text-align: center;" colspan="2" halign="left">forget01</th>
-      <th style="text-align: center;" colspan="2" halign="left">forget05</th>
       <th style="text-align: center;" colspan="2" halign="left">forget10</th>
     </tr>
     <tr>
       <th></th>
-      <th>forget_quality</th>
-      <th>model_utility</th>
-      <th>forget_quality</th>
-      <th>model_utility</th>
       <th>forget_quality</th>
       <th>model_utility</th>
     </tr>
@@ -88,19 +68,11 @@ To implement a new method, refer to our [contributing guide](../docs/contributin
   <tbody>
     <tr>
       <th>Finetuned</th>
-      <td>0.01</td>
-      <td>0.60</td>
-      <td>1.33e-13</td>
-      <td>0.6</td>
       <td>1.66e-21</td>
       <td>0.6</td>
     </tr>
     <tr>
       <th>Retain</th>
-      <td>1.0</td>
-      <td>0.60</td>
-      <td>1.0</td>
-      <td>0.6</td>
       <td>1.0</td>
       <td>0.59</td>
     </tr>
