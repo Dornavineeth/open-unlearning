@@ -12,9 +12,11 @@ from trainer.unlearn.simnpo import SimNPO
 from trainer.unlearn.rmu import RMU
 
 import logging
+
 logger = logging.getLogger(__name__)
 
 TRAINER_REGISTRY: Dict[str, Any] = {}
+
 
 def _register_trainer(trainer_class):
     TRAINER_REGISTRY[trainer_class.__name__] = trainer_class
@@ -69,7 +71,9 @@ def load_trainer(
         template_args=template_args,
         **method_args,
     )
-    logger.info(f"{trainer_handler_name} Trainer loaded, output_dir: {trainer_args.output_dir}")
+    logger.info(
+        f"{trainer_handler_name} Trainer loaded, output_dir: {trainer_args.output_dir}"
+    )
     return trainer, trainer_args
 
 
