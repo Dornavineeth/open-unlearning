@@ -1,5 +1,4 @@
 # custom .gitignore
-todos.txt
 submit.py
 !src/data/__init__.py
 logs/
