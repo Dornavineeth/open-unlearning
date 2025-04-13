@@ -12,7 +12,7 @@
           <img src="https://github.com/locuslab/open-unlearning/actions/workflows/tests.yml/badge.svg" alt="Build Status">
       </a>
       <a href="https://huggingface.co/open-unlearning">
-        <img src="https://img.shields.io/badge/Hugging%20Face-white?logo=huggingface" alt="HuggingFace 🤗">
+        <img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-blue" alt="HuggingFace 🤗">
       </a>
       <a href="https://github.com/locuslab/open-unlearning">
         <img src="https://img.shields.io/github/repo-size/locuslab/open-unlearning" alt="GitHub repo size">
