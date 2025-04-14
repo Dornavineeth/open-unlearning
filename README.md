@@ -6,7 +6,7 @@
 
   <div style="display: flex; gap: 10px; justify-content: center; align-items: center;">
     <a href="https://github.com/locuslab/open-unlearning"><img src="https://img.shields.io/github/stars/locuslab/open-unlearning?style=social" alt="GitHub Repo stars"/></a>
-    <a href="https://github.com/Dornavineeth/open-unlearning/actions"><img src="https://github.com/Dornavineeth/open-unlearning/actions/workflows/tests.yml/badge.svg?branch=docs_updates_and_misc" alt="Build Status"/></a>
+    <a href="https://github.com/locuslab/open-unlearning/actions"><img src="https://github.com/locuslab/open-unlearning/actions/workflows/tests.yml/badge.svg" alt="Build Status"/></a>
     <a href="https://huggingface.co/open-unlearning"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-blue" alt="HuggingFace 🤗"/></a>
     <a href="https://github.com/locuslab/open-unlearning"><img src="https://img.shields.io/github/repo-size/locuslab/open-unlearning" alt="GitHub repo size"/></a>
     <a href="https://github.com/locuslab/open-unlearning"><img src="https://img.shields.io/github/languages/top/locuslab/open-unlearning" alt="GitHub top language"/></a>
