@@ -126,7 +126,9 @@ def tokenwise_logprobs(model, batch, grad=False, return_labels=False):
     for i in range(bsz):
         labels = batch["labels"][i]
         # only focus on tokens which have loss on them (i.e. used in labels)
-        actual_indices = (labels != IGNORE_INDEX).nonzero(as_tuple=True)[0][:-1] # -1 to ignore eos prediction
+        actual_indices = (labels != IGNORE_INDEX).nonzero(as_tuple=True)[0][
+            :-1
+        ]  # -1 to ignore eos prediction
         num_actual_tokens = actual_indices.numel()
         if num_actual_tokens == 0:
             log_probs_batch.append(torch.tensor([0.0], device=labels.device))
@@ -167,7 +169,9 @@ def tokenwise_vocab_logprobs(model, batch, grad=False, return_labels=False):
     for i in range(bsz):
         labels = batch["labels"][i]
         # Only include positions that have labels
-        actual_indices = (labels != IGNORE_INDEX).nonzero(as_tuple=True)[0][:-1] # -1 to ignore eos prediction
+        actual_indices = (labels != IGNORE_INDEX).nonzero(as_tuple=True)[0][
+            :-1
+        ]  # -1 to ignore eos prediction
         if len(actual_indices) == 0:
             log_probs_batch.append(torch.zeros(1, V, device=labels.device))
             continue
