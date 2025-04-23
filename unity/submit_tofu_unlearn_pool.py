@@ -226,6 +226,45 @@ def main(args):
                 task_name = f"{model}_{forget_split}_{trainer}_lr{lr}_beta{beta}"
                 cmd_params_list = unlearn_tofu(train_hparams, eval_hparams, task_name, output_dir, experiment=experiment, model=model, forget_split=forget_split, retain_split=retain_split, holdout_split=holdout_split)
                 template_params_list += cmd_params_list
+    
+    if "rmu" in args.exp:
+        trainer = "RMU"
+        model = "Llama-3.2-1B-Instruct"
+        forget_split="forget10"
+        retain_split="retain90"
+        holdout_split="holdout10"
+        num_train_epochs=10
+        save_total_limit=5
+        experiment="unlearn/tofu/default.yaml"
+        
+        ## 3*3*3*5 = 135 checkpoints
+        
+        lrs = [1e-5, 5e-5, 1e-4]
+        layers = [5, 10, 15]
+        steering_coeffs = [1, 10, 100]
+        
+        for lr in lrs:
+            for layer in layers:
+                for scoeff in steering_coeffs:
+                    trainable_params_regex=f'\'["model\\.layers\\.({layer-2}|{layer-1}|{layer})\\.mlp\\.down_proj\\.weight"]\''
+                    train_hparams = {
+                        "trainer": trainer,
+                        "trainer.args.learning_rate": lr,
+                        "trainer.method_args.module_regex": f"model.layers.{layer}",
+                        "trainer.method_args.trainable_params_regex":trainable_params_regex,
+                        "trainer.method_args.steering_coeff": scoeff,
+                        "trainer.args.num_train_epochs": num_train_epochs,
+                        "trainer.args.eval_strategy": "no",
+                        "trainer.args.save_strategy": "steps",
+                        "trainer.args.eval_on_start": False,
+                        "+trainer.args.save_steps": 0.1,
+                        "+trainer.args.save_total_limit":save_total_limit,
+                    }
+                
+                    eval_hparams = {}
+                    task_name = f"{model}_{forget_split}_{trainer}_lr{lr}_layer{layer}_scoeff{scoeff}"
+                    cmd_params_list = unlearn_tofu(train_hparams, eval_hparams, task_name, output_dir, experiment=experiment, model=model, forget_split=forget_split, retain_split=retain_split, holdout_split=holdout_split)
+                    template_params_list += cmd_params_list
         
         
     create_submit_sbatch(template_params_list, print_only=print_only)
