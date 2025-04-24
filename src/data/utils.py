@@ -55,7 +55,7 @@ def preprocess_chat_instance(
             chat += [{"role": "assistant", "content": response}]
         date_str = template_config.get("date_string", None)
         date_info = {"date_string": date_str} if date_str is not None else {}
-        chat_ids = tokenizer.apply_chat_texmplate(
+        chat_ids = tokenizer.apply_chat_template(
             chat, tokenize=True, add_generation_prompt=False, **date_info
         )
         # all except last response are in-context examples
