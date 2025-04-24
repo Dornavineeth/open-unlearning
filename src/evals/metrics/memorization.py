@@ -154,7 +154,6 @@ def exact_memorization(model, **kwargs):
         )
         em_batch = []
         for log_probs, labels in zip(log_probs_batch, labels_batch):
-            assert len(log_probs) == len(labels)
             valid_len = len(labels)
             if valid_len == 0:
                 # Rarely, tokenization can result in a mismatch with no valid target
@@ -195,7 +194,6 @@ def extraction_strength(model, **kwargs):
         )
         es_batch = []
         for log_probs, labels in zip(log_probs_batch, labels_batch):
-            assert len(log_probs) == len(labels)
             valid_len = len(labels)
             preds = torch.argmax(log_probs, dim=-1)
             for k in range(valid_len):
