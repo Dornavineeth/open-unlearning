@@ -1,10 +1,12 @@
 import torch
 import datasets
 import numpy as np
+import logging
 from typing import List, Dict, Any, Union
 
 IGNORE_INDEX = -100  # TODO put in common constants
 
+logger = logging.getLogger("data_preprocessor")
 
 def load_hf_dataset(path, **kwargs):
     dataset = datasets.load_dataset(path, **kwargs)
@@ -119,6 +121,15 @@ def preprocess_chat_instance(
     else:
         item["input_ids"] = chat_ids
         labels = [IGNORE_INDEX] * len_matched + chat_ids[len_matched:]
+        if len(prompt_ids)==len(chat_ids):
+            # Rarely, tokenization can result in this condition being entered.
+            # Say a input prompt is ABC and target output is D, tokenizer(ABCD)
+            # can be [AB, CD] and tokenizer(ABC) can be [AB, C]. In this case, 
+            # we ignore loss on all indices in the labels. So, there is no way 
+            # to use this for next token prediction. Be careful while 
+            # interpreting results of such instances.
+            logger.warning("Tokenization mismatch: no valid target tokens for loss computation")
+            
     item["labels"] = labels
     item["attention_mask"] = [1] * len(item["input_ids"])
     for attr in item:

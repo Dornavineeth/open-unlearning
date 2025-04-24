@@ -16,6 +16,7 @@ from evals.metrics.base import unlearning_metric
 
 # Supress the info messages logged while calculating rouge using rouge_scorer
 logging.getLogger("absl").setLevel(logging.WARNING)
+logger = logging.getLogger("evaluator")
 
 
 @unlearning_metric(name="probability")
@@ -154,9 +155,22 @@ def exact_memorization(model, **kwargs):
         em_batch = []
         for log_probs, labels in zip(log_probs_batch, labels_batch):
             assert len(log_probs) == len(labels)
-            preds = torch.argmax(log_probs, dim=-1)
-            em_score = (preds == labels).sum() / len(labels)
-            em_batch.append({"score": em_score.item()})
+            valid_len = len(labels)
+            if valid_len == 0:
+                # Rarely, tokenization can result in a mismatch with no valid target 
+                # tokens for loss computation (see preprocess_chat_instance() for 
+                # reference). Since this condition makes no sense in terms of 
+                # computing EM, we just choose to set EM=0
+                logger.warning(
+                    "EM score for an instance is specifically marked 0 without "
+                    "computation, due to tokenization issues that resulted in no valid "
+                    "target tokens."
+                )
+                em_batch.append({"score": 0})
+            else:
+                preds = torch.argmax(log_probs, dim=-1)
+                em_score = (preds == labels).sum() / valid_len
+                em_batch.append({"score": em_score.item()})
         return em_batch
 
     fun_args = {}
@@ -189,8 +203,20 @@ def extraction_strength(model, **kwargs):
                 suff_labels = labels[k:]
                 if torch.equal(suff_preds, suff_labels):
                     break
-            es_score = 1 - (k / valid_len)
-            es_batch.append({"score": es_score})
+            if valid_len == 0:
+                # Rarely, tokenization can result in a mismatch with no valid target 
+                # tokens for loss computation (see preprocess_chat_instance() for 
+                # reference). Since this condition makes no sense in terms of 
+                # computing ES, we just choose to set ES=0
+                logger.warning(
+                    "ES score for an instance is specifically marked 0 without "
+                    "computation, due to tokenization issues that resulted in no valid "
+                    "target tokens."
+                )
+                es_batch.append({"score": 0})
+            else:
+                es_score = 1 - (k / valid_len)
+                es_batch.append({"score": es_score})
         return es_batch
 
     fun_args = {}
