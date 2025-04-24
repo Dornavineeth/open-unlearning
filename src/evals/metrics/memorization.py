@@ -157,9 +157,9 @@ def exact_memorization(model, **kwargs):
             assert len(log_probs) == len(labels)
             valid_len = len(labels)
             if valid_len == 0:
-                # Rarely, tokenization can result in a mismatch with no valid target 
-                # tokens for loss computation (see preprocess_chat_instance() for 
-                # reference). Since this condition makes no sense in terms of 
+                # Rarely, tokenization can result in a mismatch with no valid target
+                # tokens for loss computation (see preprocess_chat_instance() for
+                # reference). Since this condition makes no sense in terms of
                 # computing EM, we just choose to set EM=0
                 logger.warning(
                     "EM score for an instance is specifically marked 0 without "
@@ -204,9 +204,9 @@ def extraction_strength(model, **kwargs):
                 if torch.equal(suff_preds, suff_labels):
                     break
             if valid_len == 0:
-                # Rarely, tokenization can result in a mismatch with no valid target 
-                # tokens for loss computation (see preprocess_chat_instance() for 
-                # reference). Since this condition makes no sense in terms of 
+                # Rarely, tokenization can result in a mismatch with no valid target
+                # tokens for loss computation (see preprocess_chat_instance() for
+                # reference). Since this condition makes no sense in terms of
                 # computing ES, we just choose to set ES=0
                 logger.warning(
                     "ES score for an instance is specifically marked 0 without "
