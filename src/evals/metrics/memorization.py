@@ -32,7 +32,13 @@ def probability(model, **kwargs):
     scores_by_index = run_batchwise_evals(
         model, dataloader, evaluate_probability, fun_args, "Calculating loss"
     )
-    prob_values = np.array([evals["prob"] for evals in scores_by_index.values() if evals['prob'] is not None])
+    prob_values = np.array(
+        [
+            evals["prob"]
+            for evals in scores_by_index.values()
+            if evals["prob"] is not None
+        ]
+    )
     prob_values = aggregate_to_1D(prob_values)
     return {"agg_value": np.mean(prob_values), "value_by_index": scores_by_index}
 
@@ -47,13 +53,20 @@ def probability_w_options(model, **kwargs):
     correct_indices = list(correct_answer_results.keys())
     wrong_indices = list(wrong_answer_results.keys())
     assert correct_indices == wrong_indices
-        
+
     # Filter out None values from both correct and wrong answers
-    filtered_indices = [idx for idx in correct_indices 
-                       if correct_answer_results[idx] is not None 
-                       and wrong_answer_results[idx] is not None]
-    correct = np.array([correct_answer_results[idx]["prob"] for idx in filtered_indices])
-    all_wrong = np.array([wrong_answer_results[idx]["prob"] for idx in filtered_indices])
+    filtered_indices = [
+        idx
+        for idx in correct_indices
+        if correct_answer_results[idx] is not None
+        and wrong_answer_results[idx] is not None
+    ]
+    correct = np.array(
+        [correct_answer_results[idx]["prob"] for idx in filtered_indices]
+    )
+    all_wrong = np.array(
+        [wrong_answer_results[idx]["prob"] for idx in filtered_indices]
+    )
     wrong = np.sum(all_wrong, axis=tuple(range(1, all_wrong.ndim)))
     probs = correct / (correct + wrong + 1e-10)
 
@@ -80,7 +93,11 @@ def rouge(model, **kwargs):
         "Calculating text similarity",
     )
     rouge_values = np.array(
-        [evals[kwargs["rouge_type"]] for evals in scores_by_index.values() if evals[kwargs["rouge_type"]] is not None]
+        [
+            evals[kwargs["rouge_type"]]
+            for evals in scores_by_index.values()
+            if evals[kwargs["rouge_type"]] is not None
+        ]
     )
     rouge_values = aggregate_to_1D(rouge_values)
     return {
@@ -113,19 +130,24 @@ def truth_ratio(model, **kwargs):
 
     correct_answer_results = kwargs["pre_compute"]["correct"]["value_by_index"]
     wrong_answer_results = kwargs["pre_compute"]["wrong"]["value_by_index"]
-    
+
     correct_indices = list(correct_answer_results.keys())
     wrong_indices = list(wrong_answer_results.keys())
     assert correct_indices == wrong_indices
-    
+
     # Filter out None values from both correct and wrong answers
-    filtered_indices = [idx for idx in correct_indices 
-                       if correct_answer_results[idx] is not None 
-                       and wrong_answer_results[idx] is not None]
+    filtered_indices = [
+        idx
+        for idx in correct_indices
+        if correct_answer_results[idx] is not None
+        and wrong_answer_results[idx] is not None
+    ]
     correct_avg_losses = [
         correct_answer_results[idx]["avg_loss"] for idx in filtered_indices
     ]
-    wrong_avg_losses = [wrong_answer_results[idx]["avg_loss"] for idx in filtered_indices]
+    wrong_avg_losses = [
+        wrong_answer_results[idx]["avg_loss"] for idx in filtered_indices
+    ]
 
     correct_avg_losses = aggregate_to_1D(np.array(correct_avg_losses))
     wrong_avg_losses = aggregate_to_1D(np.array(wrong_avg_losses))
@@ -182,7 +204,13 @@ def exact_memorization(model, **kwargs):
     scores_by_index = run_batchwise_evals(
         model, dataloader, _exact_memorization, fun_args, "Calculating EM"
     )
-    em_values = np.array([evals["score"] for evals in scores_by_index.values() if evals['score'] is not None])
+    em_values = np.array(
+        [
+            evals["score"]
+            for evals in scores_by_index.values()
+            if evals["score"] is not None
+        ]
+    )
     em_values = aggregate_to_1D(em_values)
     return {"agg_value": np.mean(em_values), "value_by_index": scores_by_index}
 
@@ -226,6 +254,12 @@ def extraction_strength(model, **kwargs):
     scores_by_index = run_batchwise_evals(
         model, dataloader, _extraction_strength, fun_args, "Calculating ES"
     )
-    es_values = np.array([evals["score"] for evals in scores_by_index.values() if evals['score'] is not None])
+    es_values = np.array(
+        [
+            evals["score"]
+            for evals in scores_by_index.values()
+            if evals["score"] is not None
+        ]
+    )
     es_values = aggregate_to_1D(es_values)
     return {"agg_value": np.mean(es_values), "value_by_index": scores_by_index}
