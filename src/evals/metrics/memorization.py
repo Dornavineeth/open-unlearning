@@ -52,8 +52,8 @@ def probability_w_options(model, **kwargs):
     filtered_indices = [idx for idx in correct_indices 
                        if correct_answer_results[idx] is not None 
                        and wrong_answer_results[idx] is not None]
-    correct = np.array([correct_answer_results[idx] for idx in filtered_indices])
-    all_wrong = np.array([correct_answer_results[idx] for idx in filtered_indices])
+    correct = np.array([correct_answer_results[idx]["prob"] for idx in filtered_indices])
+    all_wrong = np.array([wrong_answer_results[idx]["prob"] for idx in filtered_indices])
     wrong = np.sum(all_wrong, axis=tuple(range(1, all_wrong.ndim)))
     probs = correct / (correct + wrong + 1e-10)
 
