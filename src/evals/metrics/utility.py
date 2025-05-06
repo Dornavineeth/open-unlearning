@@ -1,6 +1,7 @@
 import torch
 import numpy as np
 import scipy as sc
+from tqdm import tqdm
 import torch.nn.functional as F
 from torch.utils.data import DataLoader
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
@@ -31,13 +32,13 @@ def classification_prob(model, **kwargs):
     ).to(device)
 
     data = kwargs["pre_compute"]["text"]["value_by_index"]
-    data_list = [{"text": entry[text_key], "index": key} for key, entry in data.items()]
+    data_list = [{"text": entry[text_key], "index": int(key)} for key, entry in data.items()]
 
     # Create DataLoader
     dataloader = DataLoader(data_list, batch_size=batch_size, shuffle=False)
 
     scores_by_index = {}
-    for batch in dataloader:
+    for batch in tqdm(dataloader):
         batch_texts = batch["text"]
         batch_indices = batch["index"].tolist()
 
