@@ -6,8 +6,9 @@ output_dir: ${paths.output_dir} # set to default eval directory
 overwrite: false
 
 # You can also define your own tasks here as per the guide
-metrics:
-  - arc_easy
+tasks:
+  - mmlu
+
 
 simple_evaluate_args:
   batch_size: 16

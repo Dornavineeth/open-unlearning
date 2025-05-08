@@ -22,29 +22,45 @@ class LMEvalEvaluator(Evaluator):
         model.eval()
         return HFLM(model)
 
-    def summarize(self, results):
-        """Summarize the metrics results"""
-        metric_summary = {}
-        if not isinstance(results, dict):
-            # Unexpected format; return empty to be safe
-            return metric_summary
-        # Unwrap if results are nested under a 'results' key
-        if "results" in results and isinstance(results["results"], dict):
-            results = results["results"]
+    def summarize(self, eval_results: dict, task_name: str) -> dict:
+        """
+        Summarize evaluation metrics from lm_eval.simple_evaluate.
+        - If task_name is a group, return only aggregated group-level metrics.
+        - If it's a single task, return per-task metrics from 'results'.
+        - Always exclude 'alias' entries and strip ',none' suffixes.
+        """
+        summary = {}
 
-        for task, metrics in results.items():
-            # Each task entry should be a dict of metrics
-            if not isinstance(metrics, dict):
-                continue
-            for metric_name, value in metrics.items():
-                try:
-                    numeric_val = float(value)
-                except (TypeError, ValueError):
+        def clean_metric_key(prefix: str, metric_name: str) -> str | None:
+            if metric_name == "alias":
+                return None
+            base = metric_name.split(",", 1)[0].strip()
+            return f"{prefix}/{base}"
+
+        # Check if task is a group (e.g., 'mmlu')
+        if task_name in self.task_manager.all_groups:
+            group_metrics = eval_results.get("groups", {}).get(task_name, {})
+            for metric_name, value in group_metrics.items():
+                key = clean_metric_key(task_name, metric_name)
+                if key is None:
                     continue
-                # Add to flat dict with the prefixed key
-                flat_key = f"{task}/{metric_name}"
-                metric_summary[flat_key] = numeric_val
-        return metric_summary
+                try:
+                    summary[key] = float(value)
+                except (TypeError, ValueError):
+                    summary[key] = value
+        else:
+            task_metrics = eval_results.get("results", {}).get(task_name, {})
+            for metric_name, value in task_metrics.items():
+                key = clean_metric_key(task_name, metric_name)
+                if key is None:
+                    continue
+                try:
+                    summary[key] = float(value)
+                except (TypeError, ValueError):
+                    summary[key] = value
+
+        return summary
+
 
     def get_task_name(self, task):
         if isinstance(task, str):
@@ -90,7 +106,7 @@ class LMEvalEvaluator(Evaluator):
                 **self.simple_evaluate_args,
             )
             logs.update({task_name: results["samples"]})
-            summary.update(self.summarize(results))
+            summary.update(self.summarize(results, task_name))
             self.save_logs(logs, logs_file_path)
             self.save_logs(summary, summary_file_path)
         return summary
