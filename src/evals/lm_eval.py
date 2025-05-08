@@ -61,7 +61,6 @@ class LMEvalEvaluator(Evaluator):
 
         return summary
 
-
     def get_task_name(self, task):
         if isinstance(task, str):
             return task
