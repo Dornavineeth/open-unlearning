@@ -6,7 +6,7 @@ pre_compute:
   forget_Q_A_ROUGE:
     access_key: text
 
-handler: classification_prob
+handler: classifier_prob
 batch_size: 32
 max_length: 512
 class_id: 0
