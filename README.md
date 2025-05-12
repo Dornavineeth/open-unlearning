@@ -27,10 +27,9 @@ We invite the LLM unlearning community to collaborate by adding new benchmarks, 
 ### 📢 Updates
 
 #### [May 12, 2025]
-🚨🚨 **IMPORTANT:** 🚨🚨 Be sure to run `python setup_data.py` immediately after merging the latest version. This is required to refresh the downloaded eval log files and ensure they're compatible with the latest evaluation metrics.
 
-- **New Benchmark**: Added `WMDP` benchmark with support for the `Zephyr` model.
-- **Evaluation Integration**: Integrated `lm-evaluation-harness` for deeper model utility analysis.
+- **Another benchmark!** We now support running the [`WMDP`](https://wmdp.ai/) benchmark with its `Zephyr` task model.
+- **More evaluations!**  The [`lm-evaluation-harness`](https://github.com/EleutherAI/lm-evaluation-harness) toolkit has been integrated into OpenUnlearning, enabling WMDP evaluations and support for popular general LLM benchmarks, including MMLU, GSM8K, and others.
 
 <details>
 <summary><b>Older Updates</b></summary>
@@ -39,6 +38,8 @@ We invite the LLM unlearning community to collaborate by adding new benchmarks, 
 - **More Metrics!** Added 6 Membership Inference Attacks (MIA) (LOSS, ZLib, Reference, GradNorm, MinK, and MinK++), along with Extraction Strength (ES) and  Exact Memorization (EM) as additional evaluation metrics.
 - **More TOFU Evaluations!** Now includes a holdout set and supports MIA attack-based evaluation. You can now compute MUSE's privleak on TOFU.
 - **More Documentation!** [`docs/links.md`](docs/links.md) contains resources for each of the implemented features and other useful LLM unlearning resources.
+
+Be sure to run `python setup_data.py` immediately after merging the latest version. This is required to refresh the downloaded eval log files and ensure they're compatible with the latest evaluation metrics.
 
 #### [Mar 27, 2025]
 - **More Documentation: easy contributions and the leaderboard functionality**: We've updated the documentation to make contributing new unlearning methods and benchmarks much easier. Users can document additions better and also update a leaderboard with their results. See [this section](#-how-to-contribute) for details.
