@@ -5,9 +5,13 @@ handler: LMEvalEvaluator
 output_dir: ${paths.output_dir} # set to default eval directory
 overwrite: false
 
-# You can also define your own tasks here as per the guide
+# Define evaluation tasks here
 tasks:
   - mmlu
+  # - task: gsm8k
+  #   dataset_path: gsm8k
+  #   # define the entire task config. 
+  #   # ^ Example: https://github.com/EleutherAI/lm-evaluation-harness/blob/main/lm_eval/tasks/gsm8k/gsm8k.yaml
 
 
 simple_evaluate_args:

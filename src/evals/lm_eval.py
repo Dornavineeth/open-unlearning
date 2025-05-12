@@ -1,4 +1,6 @@
 import logging
+from omegaconf import OmegaConf
+
 from lm_eval.models.hf_vlms import HFLM
 from lm_eval.tasks import TaskManager
 from lm_eval import simple_evaluate
@@ -13,9 +15,11 @@ class LMEvalEvaluator(Evaluator):
     def __init__(self, eval_cfg, **kwargs):
         self.name = "LMEval"
         self.eval_cfg = eval_cfg
-        self.tasks = list(self.eval_cfg.tasks)
+        self.tasks = OmegaConf.to_container(
+            self.eval_cfg.tasks, resolve=True, throw_on_missing=True
+        )
         self.task_manager = TaskManager()
-        self.simple_evaluate_args = kwargs.get("simple_evaluate_args", {})
+        self.simple_evaluate_args = dict(kwargs.get("simple_evaluate_args", {}))
 
     def prepare_model(self, model, **kwargs):
         """Prepare model for evaluation"""

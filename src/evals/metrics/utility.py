@@ -16,8 +16,8 @@ def hm_aggregate(model, **kwargs):
     return {"agg_value": sc.stats.hmean(values)}
 
 
-@unlearning_metric(name="classification_prob")
-def classification_prob(model, **kwargs):
+@unlearning_metric(name="classifier_prob")
+def classifier_prob(model, **kwargs):
     batch_size = kwargs.get("batch_size", 32)
     max_length = kwargs.get("max_length", 512)
     class_id = kwargs.get("class_id", 0)

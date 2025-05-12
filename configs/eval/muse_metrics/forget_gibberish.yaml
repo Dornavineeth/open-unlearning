@@ -1,4 +1,4 @@
-# @package eval.muse.metrics.forget_Q_A_gibberish
+# @package eval.muse.metrics.forget_gibberish
 defaults:
   - .@pre_compute.forget_verbmem_ROUGE: forget_verbmem_ROUGE
 
@@ -6,7 +6,7 @@ pre_compute:
   forget_verbmem_ROUGE:
     access_key: text
 
-handler: classification_prob
+handler: classifier_prob
 batch_size: 32
 max_length: 512
 class_id: 0
