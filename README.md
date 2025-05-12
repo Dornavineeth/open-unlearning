@@ -98,9 +98,11 @@ pip install .[lm_eval]
 pip install --no-build-isolation flash-attn==2.6.3
 
 # Data setup
-python setup_data.py  # saves/eval now contains evaluation results of the uploaded models
-# Downloads log files with metric eval results (incl retain model logs) from the models 
-# used in the supported benchmarks.
+python setup_data.py --eval # saves/eval now contains evaluation results of the uploaded models
+# This downloads log files with evaluation results (including retain model logs)
+# into `saves/eval`, used for evaluating unlearning across supported benchmarks.
+# Additional datasets (e.g., WMDP) are supported — run below for options:
+# python setup_data.py --help
 ```
 
 ---
