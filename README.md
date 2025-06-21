@@ -26,13 +26,24 @@ We invite the LLM unlearning community to collaborate by adding new benchmarks, 
 
 ### 📢 Updates
 
+### [June 20, 2025]
+
+Our paper: `OpenUnlearning: Accelerating LLM Unlearning via Unified Benchmarking of Methods and Metrics` is [out](https://arxiv.org/abs/2506.12618) on Arxiv. We introduce
+- Our technical report on OpenUnlearning, its design, features and other details.
+- A meta-evaluation framework to benchmark unlearning evaluations on a set of 450+ open sourced models.
+- Results benchmarking 8 diverse unlearning methods in one place using 10 evaluation metrics on TOFU.
+
+### [May 19, 2025]
+
+- **More Methods!** Added support for unlearning methods [UNDIAL](https://aclanthology.org/2025.naacl-long.444/) and [AltPO](https://aclanthology.org/2025.coling-main.252/).
+
+<details>
+<summary><b>Older Updates</b></summary>
+
 #### [May 12, 2025]
 
 - **Another benchmark!** We now support running the [`WMDP`](https://wmdp.ai/) benchmark with its `Zephyr` task model.
 - **More evaluations!**  The [`lm-evaluation-harness`](https://github.com/EleutherAI/lm-evaluation-harness) toolkit has been integrated into OpenUnlearning, enabling WMDP evaluations and support for popular general LLM benchmarks, including MMLU, GSM8K, and others.
-
-<details>
-<summary><b>Older Updates</b></summary>
 
 #### [Apr 6, 2025]
 - **More Metrics!** Added 6 Membership Inference Attacks (MIA) (LOSS, ZLib, Reference, GradNorm, MinK, and MinK++), along with Extraction Strength (ES) and  Exact Memorization (EM) as additional evaluation metrics.
@@ -193,29 +204,29 @@ If you encounter any issues or have questions, feel free to raise an issue in th
 
 ## 📝 Citing this work
 
-If you use OpenUnlearning in your research, please cite OpenUnlearning and the benchmarks from the below:
+If you use OpenUnlearning in your research, please make sure to cite our OpenUnlearning technical report, the TOFU and MUSE benchmarks.
 
 ```bibtex
-@misc{openunlearning2025,
-  title={{OpenUnlearning}: A Unified Framework for LLM Unlearning Benchmarks},
-  author={Dorna, Vineeth and Mekala, Anmol and Zhao, Wenlong and McCallum, Andrew and Kolter, J Zico and Maini, Pratyush},
-  year={2025},
-  howpublished={\url{https://github.com/locuslab/open-unlearning}},
-  note={Accessed: February 27, 2025}
+@article{openunlearning2025,
+  title={{OpenUnlearning}: Accelerating {LLM} Unlearning via Unified Benchmarking of Methods and Metrics},
+  author={Dorna, Vineeth and Mekala, Anmol and Zhao, Wenlong and McCallum, Andrew and Lipton, Zachary C and Kolter, J Zico and Maini, Pratyush},
+  journal={arXiv preprint arXiv:2506.12618},
+  year={2025},,
 }
 @inproceedings{maini2024tofu,
-  title={{TOFU}: A Task of Fictitious Unlearning for LLMs},
+  title={{TOFU}: A Task of Fictitious Unlearning for {LLMs}},
   author={Maini, Pratyush and Feng, Zhili and Schwarzschild, Avi and Lipton, Zachary Chase and Kolter, J Zico},
   booktitle={First Conference on Language Modeling},
   year={2024}
 }
-@inproceedings{
-  shi2025muse,
+@article{shi2024muse,
   title={{MUSE}: Machine Unlearning Six-Way Evaluation for Language Models},
   author={Weijia Shi and Jaechan Lee and Yangsibo Huang and Sadhika Malladi and Jieyu Zhao and Ari Holtzman and Daogao Liu and Luke Zettlemoyer and Noah A. Smith and Chiyuan Zhang},
-  booktitle={The Thirteenth International Conference on Learning Representations},
-  year={2025},
-  url={https://openreview.net/forum?id=TArmA033BU}
+  year={2024},
+  eprint={2407.06460},
+  archivePrefix={arXiv},
+  primaryClass={cs.CL},
+  url={https://arxiv.org/abs/2407.06460},
 }
 ```
 </details>
