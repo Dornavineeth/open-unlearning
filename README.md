@@ -29,8 +29,9 @@ We invite the LLM unlearning community to collaborate by adding new benchmarks, 
 
 ### [June 20, 2025]
 
-🚨 Our paper `OpenUnlearning: Accelerating LLM Unlearning via Unified Benchmarking of Methods and Metrics` is now out on [arXiv](https://arxiv.org/abs/2506.12618)!
-Highlights:
+🚨 Our paper `OpenUnlearning: Accelerating LLM Unlearning via Unified Benchmarking of Methods and Metrics` is now out on [arXiv](https://arxiv.org/abs/2506.12618).
+
+🌟 **Highlights:**
 - A detailed technical report on OpenUnlearning covering the design, features, and implementation.
 - A meta-evaluation framework for benchmarking unlearning evaluations across 450+ open-source models.
 - Results benchmarking 8 diverse unlearning methods in one place using 10 evaluation metrics on TOFU.
