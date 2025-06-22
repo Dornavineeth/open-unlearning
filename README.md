@@ -5,6 +5,7 @@
 <h3><strong>An easily extensible framework unifying LLM unlearning evaluation benchmarks.</strong></h3>
 
   <div style="display: flex; gap: 10px; justify-content: center; align-items: center;">
+    <a href="https://arxiv.org/abs/2506.12618"><img src="https://img.shields.io/badge/arXiv-Report-b31b1b?logo=arxiv&logoColor=white" alt="arXiv Paper"/></a>
     <a href="https://github.com/locuslab/open-unlearning"><img src="https://img.shields.io/github/stars/locuslab/open-unlearning?style=social" alt="GitHub Repo stars"/></a>
     <a href="https://github.com/locuslab/open-unlearning/actions"><img src="https://github.com/locuslab/open-unlearning/actions/workflows/tests.yml/badge.svg" alt="Build Status"/></a>
     <a href="https://huggingface.co/open-unlearning"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-blue" alt="HuggingFace 🤗"/></a>
@@ -28,17 +29,19 @@ We invite the LLM unlearning community to collaborate by adding new benchmarks, 
 
 ### [June 20, 2025]
 
-Our paper: `OpenUnlearning: Accelerating LLM Unlearning via Unified Benchmarking of Methods and Metrics` is [out](https://arxiv.org/abs/2506.12618) on Arxiv. We introduce
-- Our technical report on OpenUnlearning, its design, features and other details.
-- A meta-evaluation framework to benchmark unlearning evaluations on a set of 450+ open sourced models.
+🚨 Our paper `OpenUnlearning: Accelerating LLM Unlearning via Unified Benchmarking of Methods and Metrics` is now out on [arXiv](https://arxiv.org/abs/2506.12618)!
+Highlights:
+- A detailed technical report on OpenUnlearning covering the design, features, and implementation.
+- A meta-evaluation framework for benchmarking unlearning evaluations across 450+ open-source models.
 - Results benchmarking 8 diverse unlearning methods in one place using 10 evaluation metrics on TOFU.
-
-### [May 19, 2025]
-
-- **More Methods!** Added support for unlearning methods [UNDIAL](https://aclanthology.org/2025.naacl-long.444/) and [AltPO](https://aclanthology.org/2025.coling-main.252/).
 
 <details>
 <summary><b>Older Updates</b></summary>
+
+
+#### [May 19, 2025]
+
+- **More Methods!** Added support for unlearning methods [UNDIAL](https://aclanthology.org/2025.naacl-long.444/) and [AltPO](https://aclanthology.org/2025.coling-main.252/).
 
 #### [May 12, 2025]
 
