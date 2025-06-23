@@ -80,6 +80,7 @@ def compute_batch_ceu(model, inputs, ignore_first_n_answer_tokens=1):
     )
     return loss, outputs
 
+
 class CEU(UnlearnTrainer):
     def __init__(self, ignore_first_n_answer_tokens=1, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -87,5 +88,9 @@ class CEU(UnlearnTrainer):
 
     def compute_loss(self, model, inputs, return_outputs=False):
         forget_inputs = inputs["forget"]
-        loss, outputs = compute_batch_ceu(model, forget_inputs, ignore_first_n_answer_tokens=self.ignore_first_n_answer_tokens)
+        loss, outputs = compute_batch_ceu(
+            model,
+            forget_inputs,
+            ignore_first_n_answer_tokens=self.ignore_first_n_answer_tokens,
+        )
         return (loss, outputs) if return_outputs else loss
