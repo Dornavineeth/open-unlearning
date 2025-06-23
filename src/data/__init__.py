@@ -1,10 +1,7 @@
 from typing import Dict, Any, Union
 from omegaconf import DictConfig
 
-from data.qa import (
-    QADataset,
-    QAwithIdkDataset,
-)
+from data.qa import QADataset, QAwithIdkDataset, QAwithAlternateDataset
 from data.collators import (
     DataCollatorForSupervisedDataset,
 )
@@ -40,9 +37,8 @@ def _load_single_dataset(dataset_name, dataset_cfg: DictConfig, **kwargs):
 def get_datasets(dataset_cfgs: Union[Dict, DictConfig], **kwargs):
     dataset = {}
     for dataset_name, dataset_cfg in dataset_cfgs.items():
-        dataset[dataset_name] = _load_single_dataset(
-            dataset_name, dataset_cfg, **kwargs
-        )
+        access_name = dataset_cfg.get("access_key", dataset_name)
+        dataset[access_name] = _load_single_dataset(dataset_name, dataset_cfg, **kwargs)
     if len(dataset) == 1:
         # return a single dataset
         return list(dataset.values())[0]
@@ -99,6 +95,7 @@ _register_data(QADataset)
 _register_data(QAwithIdkDataset)
 _register_data(PretrainingDataset)
 _register_data(CompletionDataset)
+_register_data(QAwithAlternateDataset)
 
 # Register composite datasets used in unlearning
 # groups: unlearn
