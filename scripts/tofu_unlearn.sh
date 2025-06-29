@@ -15,7 +15,6 @@ trainers_experiments=(
     "NPO unlearn/tofu/default.yaml"
     "DPO unlearn/tofu/idk.yaml"
     "RMU  unlearn/tofu/default.yaml"
-    "CEU unlearn/tofu/default.yaml"
 )
 splits=(
     "forget01 holdout01 retain99"
