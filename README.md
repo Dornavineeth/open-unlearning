@@ -33,7 +33,8 @@ We invite the LLM unlearning community to collaborate by adding new benchmarks, 
 
 🌟 **Highlights:**
 - A detailed technical report on OpenUnlearning covering the design, features, and implementation.
-- A meta-evaluation framework for benchmarking unlearning evaluations across 450+ open-source models.
+- A meta-evaluation framework for benchmarking unlearning evaluations across 450+ open-source models. 
+- Model collections 🤗: [TOFU Models w & w/o Knowledge](https://huggingface.co/collections/open-unlearning/tofu-models-w-and-w-o-knowledge-6861e4d935eb99ba162e55cd), [TOFU Unlearned Models](https://huggingface.co/collections/open-unlearning/tofu-unlearned-models-6860f6cf3fe35d0223d92e88).
 - Results benchmarking 8 diverse unlearning methods in one place using 10 evaluation metrics on TOFU.
 
 <details>
