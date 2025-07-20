@@ -23,7 +23,7 @@ We provide efficient and streamlined implementations of the TOFU, MUSE and WMDP 
 
 We invite the LLM unlearning community to collaborate by adding new benchmarks, unlearning methods, datasets and evaluation metrics here to expand OpenUnlearning's features, gain feedback from wider usage and drive progress in the field.
 
-### ⚠️⚠️ If you use this repository or any models from our Hugging Face, please [cite](#-citing-our-work) our [technical report](https://arxiv.org/abs/2506.12618).⚠️⚠️
+### ⚠️⚠️ If you use this repository or any models from our Hugging Face, please [cite](#-citing-this-work) our [technical report](https://arxiv.org/abs/2506.12618).⚠️⚠️
 
 ---
 
